@@ -1,0 +1,296 @@
+<?php
+/**
+ * Template Name: Cenová ponuka - Trapez - Typ
+ *
+ */
+?>
+<?php get_header() ?>
+
+<main id="content">
+
+    <section class="tw-py-50 md:tw-pb-100">
+        <div class="container">
+            <div class="tw-max-w-[1200px] tw-mx-auto">
+                <!-- Progress stepper -->
+                <div class="tw-flex tw-items-center tw-justify-center tw-mb-40 tw-gap-8">
+                    <!-- Krok 1 - Dokončený -->
+                    <div class="tw-flex tw-items-center tw-cursor-pointer hover:tw-opacity-80 tw-transition-opacity" onclick="window.location.href='/angebot/berechnung/'">
+                        <div class="tw-w-32 tw-h-32 tw-rounded-full tw-bg-primary-900 tw-flex tw-items-center tw-justify-center tw-text-white tw-font-bold tw-text-[14px]">
+                            <svg class="tw-w-18 tw-h-18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <span class="tw-ml-8 tw-text-[16px] tw-font-bold tw-text-primary-900 tw-uppercase">Výber produktu</span>
+                    </div>
+
+                    <div class="tw-w-40 tw-h-1 tw-bg-neutral-300"></div>
+
+                    <!-- Krok 2 - Aktívny -->
+                    <div class="tw-flex tw-items-center">
+                        <div class="tw-w-32 tw-h-32 tw-rounded-full tw-border-2 tw-border-primary-900 tw-flex tw-items-center tw-justify-center tw-text-primary-900 tw-font-bold tw-text-[14px]">
+                            2
+                        </div>
+                        <span class="tw-ml-8 tw-text-[16px] tw-font-bold tw-text-primary-900 tw-uppercase">Typ</span>
+                    </div>
+
+                    <div class="tw-w-40 tw-h-1 tw-bg-neutral-300"></div>
+
+                    <!-- Krok 3 - kliknuteľný s validáciou -->
+                    <div class="tw-flex tw-items-center tw-cursor-pointer hover:tw-opacity-80 tw-transition-opacity" onclick="validateAndContinue()">
+                        <div class="tw-w-32 tw-h-32 tw-rounded-full tw-border tw-border-neutral-300 tw-flex tw-items-center tw-justify-center tw-text-neutral-400 tw-font-bold tw-text-[14px]">
+                            3
+                        </div>
+                        <span class="tw-ml-8 tw-text-[14px] md:tw-text-[16px] tw-font-medium tw-text-neutral-400 tw-uppercase">Farba</span>
+                    </div>
+                </div>
+
+                <!-- Nadpis -->
+                <h1 class="tw-text-center tw-text-[28px] md:tw-text-[40px] tw-font-bold tw-mb-50">
+                    2. Výber typu plotových lamelov
+                </h1>
+
+                <!-- Výber hlavného typu -->
+                <div class="tw-mb-40">
+                    <div class="tw-grid tw-grid-cols-2 sm:tw-grid-cols-4 tw-gap-16 md:tw-gap-20">
+                        <!-- Plotové lamely -->
+                        <div class="type-card tw-relative tw-bg-white tw-border-2 tw-border-neutral-200 tw-rounded-12 tw-p-20 tw-cursor-pointer hover:tw-border-primary-900 tw-transition-all" data-type="Plotové lamely" onclick="selectType(this)">
+                            <div class="tw-flex tw-flex-col tw-items-center tw-text-center">
+                                <div class="tw-w-full tw-relative tw-aspect-square tw-mb-12">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/images/cenova-ponuka/15.png" alt="Plotové lamely" class="tw-w-full tw-h-full tw-object-contain tw-rounded-8" />
+                                </div>
+                                <h3 class="tw-text-[14px] md:tw-text-[16px] tw-font-medium tw-mb-0">Plotové lamely</h3>
+                            </div>
+                            <div class="checkmark tw-opacity-0 tw-absolute tw-top-12 tw-right-12 tw-w-24 tw-h-24 tw-bg-primary-900 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-all">
+                                <svg class="tw-w-16 tw-h-16 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Trapézové plechy -->
+                        <div class="type-card tw-relative tw-bg-white tw-border-2 tw-border-neutral-200 tw-rounded-12 tw-p-20 tw-cursor-pointer hover:tw-border-primary-900 tw-transition-all" data-type="Trapézové plechy" onclick="selectType(this)">
+                            <div class="tw-flex tw-flex-col tw-items-center tw-text-center">
+                                <div class="tw-w-full tw-relative tw-aspect-square tw-mb-12">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/images/cenova-ponuka/16.png" alt="Trapézové plechy" class="tw-w-full tw-h-full tw-object-contain tw-rounded-8" />
+                                </div>
+                                <h3 class="tw-text-[14px] md:tw-text-[16px] tw-font-medium tw-mb-0">Trapézové plechy</h3>
+                            </div>
+                            <div class="checkmark tw-opacity-0 tw-absolute tw-top-12 tw-right-12 tw-w-24 tw-h-24 tw-bg-primary-900 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-all">
+                                <svg class="tw-w-16 tw-h-16 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="type-error" class="tw-hidden tw-text-error-500 tw-text-[14px] md:tw-text-[16px] tw-mt-8 tw-font-medium tw-px-8 tw-py-4 tw-rounded-8 tw-bg-error-500/10">Musíte vybrať hlavný typ</div>
+                </div>
+
+                <!-- Výber podtypu - zobraziť iba pri "Trapézové plechy" -->
+                <div id="subtype-section" class="tw-mb-40 tw-hidden">
+                    <h2 class="tw-text-[18px] tw-font-bold tw-mb-16">Vyberte typ trapézového plechu</h2>
+                    <div class="tw-grid tw-grid-cols-2 sm:tw-grid-cols-3 md:tw-grid-cols-6 tw-gap-16">
+                        <!-- T12 -->
+                        <div class="subtype-card tw-relative tw-bg-white tw-border-2 tw-border-neutral-200 tw-rounded-12 tw-p-12 tw-cursor-pointer hover:tw-border-primary-900 tw-transition-all tw-flex tw-flex-col tw-items-center" data-subtype="T12" onclick="selectSubtype(this)">
+                            <div class="tw-w-full tw-relative tw-aspect-square tw-mb-8">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/cenova-ponuka/17.png" alt="T12" class="tw-w-full tw-h-full tw-object-contain tw-rounded-8" />
+                            </div>
+                            <div class="tw-text-[14px] md:tw-text-[16px] tw-font-medium">T12</div>
+                            <div class="checkmark tw-opacity-0 tw-absolute tw-top-8 tw-right-8 tw-w-20 tw-h-20 tw-bg-primary-900 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-all">
+                                <svg class="tw-w-14 tw-h-14 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- T18 -->
+                        <div class="subtype-card tw-relative tw-bg-white tw-border-2 tw-border-neutral-200 tw-rounded-12 tw-p-12 tw-cursor-pointer hover:tw-border-primary-900 tw-transition-all tw-flex tw-flex-col tw-items-center" data-subtype="T18" onclick="selectSubtype(this)">
+                            <div class="tw-w-full tw-relative tw-aspect-square tw-mb-8">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/cenova-ponuka/18.png" alt="T18" class="tw-w-full tw-h-full tw-object-contain tw-rounded-8" />
+                            </div>
+                            <div class="tw-text-[14px] md:tw-text-[16px] tw-font-medium">T18</div>
+                            <div class="checkmark tw-opacity-0 tw-absolute tw-top-8 tw-right-8 tw-w-20 tw-h-20 tw-bg-primary-900 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-all">
+                                <svg class="tw-w-14 tw-h-14 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- T30 -->
+                        <div class="subtype-card tw-relative tw-bg-white tw-border-2 tw-border-neutral-200 tw-rounded-12 tw-p-12 tw-cursor-pointer hover:tw-border-primary-900 tw-transition-all tw-flex tw-flex-col tw-items-center" data-subtype="T30" onclick="selectSubtype(this)">
+                            <div class="tw-w-full tw-relative tw-aspect-square tw-mb-8">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/cenova-ponuka/19.png" alt="T30" class="tw-w-full tw-h-full tw-object-contain tw-rounded-8" />
+                            </div>
+                            <div class="tw-text-[14px] md:tw-text-[16px] tw-font-medium">T30</div>
+                            <div class="checkmark tw-opacity-0 tw-absolute tw-top-8 tw-right-8 tw-w-20 tw-h-20 tw-bg-primary-900 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-all">
+                                <svg class="tw-w-14 tw-h-14 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- T35 -->
+                        <div class="subtype-card tw-relative tw-bg-white tw-border-2 tw-border-neutral-200 tw-rounded-12 tw-p-12 tw-cursor-pointer hover:tw-border-primary-900 tw-transition-all tw-flex tw-flex-col tw-items-center" data-subtype="T35" onclick="selectSubtype(this)">
+                            <div class="tw-w-full tw-relative tw-aspect-square tw-mb-8">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/cenova-ponuka/20.png" alt="T35" class="tw-w-full tw-h-full tw-object-contain tw-rounded-8" />
+                            </div>
+                            <div class="tw-text-[14px] md:tw-text-[16px] tw-font-medium">T35</div>
+                            <div class="checkmark tw-opacity-0 tw-absolute tw-top-8 tw-right-8 tw-w-20 tw-h-20 tw-bg-primary-900 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-all">
+                                <svg class="tw-w-14 tw-h-14 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Stepro -->
+                        <div class="subtype-card tw-relative tw-bg-white tw-border-2 tw-border-neutral-200 tw-rounded-12 tw-p-12 tw-cursor-pointer hover:tw-border-primary-900 tw-transition-all tw-flex tw-flex-col tw-items-center" data-subtype="Stepro" onclick="selectSubtype(this)">
+                            <div class="tw-w-full tw-relative tw-aspect-square tw-mb-8">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/cenova-ponuka/21.png" alt="Stepro" class="tw-w-full tw-h-full tw-object-contain tw-rounded-8" />
+                            </div>
+                            <div class="tw-text-[14px] md:tw-text-[16px] tw-font-medium">Stepro</div>
+                            <div class="checkmark tw-opacity-0 tw-absolute tw-top-8 tw-right-8 tw-w-20 tw-h-20 tw-bg-primary-900 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-all">
+                                <svg class="tw-w-14 tw-h-14 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Sinus -->
+                        <div class="subtype-card tw-relative tw-bg-white tw-border-2 tw-border-neutral-200 tw-rounded-12 tw-p-12 tw-cursor-pointer hover:tw-border-primary-900 tw-transition-all tw-flex tw-flex-col tw-items-center" data-subtype="Sinus" onclick="selectSubtype(this)">
+                            <div class="tw-w-full tw-relative tw-aspect-square tw-mb-8">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/cenova-ponuka/22.png" alt="Sinus" class="tw-w-full tw-h-full tw-object-contain tw-rounded-8" />
+                            </div>
+                            <div class="tw-text-[14px] md:tw-text-[16px] tw-font-medium">Sinus</div>
+                            <div class="checkmark tw-opacity-0 tw-absolute tw-top-8 tw-right-8 tw-w-20 tw-h-20 tw-bg-primary-900 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-all">
+                                <svg class="tw-w-14 tw-h-14 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="subtype-error" class="tw-hidden tw-text-error-500 tw-text-[14px] md:tw-text-[16px] tw-mt-8 tw-font-medium tw-px-8 tw-py-4 tw-rounded-8 tw-bg-error-500/10">Musíte vybrať podtyp trapézového plechu</div>
+                </div>
+
+                <!-- Oddelovacia čiara a tlačidlá -->
+                <div class="tw-border-t tw-border-neutral-300 tw-pt-40">
+                    <div class="tw-flex tw-justify-between tw-items-center">
+                        <button onclick="goBack()" class="tw-pl-24 tw-pr-20 tw-py-8 tw-bg-white tw-border tw-border-black tw-rounded-12 tw-text-black tw-font-bold tw-text-[16px] hover:tw-bg-neutral-100 tw-transition-all tw-flex tw-items-center tw-gap-10">
+                            <svg class="tw-w-20 tw-h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Späť
+                        </button>
+
+                        <button onclick="validateAndContinue()" class="tw-pl-24 tw-pr-20 tw-py-8 tw-bg-white tw-border-2 tw-border-primary-900 tw-rounded-12 tw-text-black tw-font-bold tw-text-[16px] hover:tw-bg-primary-900 hover:tw-text-white tw-transition-all tw-flex tw-items-center tw-gap-10">
+                            Ďalej
+                            <svg class="tw-w-20 tw-h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+function selectType(element) {
+    document.getElementById('type-error').classList.add('tw-hidden');
+    document.getElementById('subtype-error').classList.add('tw-hidden');
+
+    // reset main type cards
+    document.querySelectorAll('.type-card').forEach(card => {
+        card.classList.remove('tw-border-primary-900');
+        card.classList.add('tw-border-neutral-200');
+        card.querySelector('.checkmark').classList.add('tw-opacity-0');
+        card.querySelector('.checkmark').classList.remove('tw-opacity-100');
+    });
+
+    // mark current
+    element.classList.remove('tw-border-neutral-200');
+    element.classList.add('tw-border-primary-900');
+    element.querySelector('.checkmark').classList.remove('tw-opacity-0');
+    element.querySelector('.checkmark').classList.add('tw-opacity-100');
+
+    // save
+    const type = element.getAttribute('data-type');
+    sessionStorage.setItem('plotType', type);
+
+    // toggle subtype section
+    const isTrapez = type === 'Trapézové plechy';
+    const subSection = document.getElementById('subtype-section');
+    if (isTrapez) {
+        subSection.classList.remove('tw-hidden');
+    } else {
+        subSection.classList.add('tw-hidden');
+        // clear subtype selection when switching to lamely
+        sessionStorage.removeItem('plotSubType');
+        document.querySelectorAll('.subtype-card').forEach(card => {
+            card.classList.remove('tw-border-primary-900');
+            card.classList.add('tw-border-neutral-200');
+            card.querySelector('.checkmark').classList.add('tw-opacity-0');
+            card.querySelector('.checkmark').classList.remove('tw-opacity-100');
+        });
+    }
+}
+
+function selectSubtype(element) {
+    document.getElementById('subtype-error').classList.add('tw-hidden');
+
+    document.querySelectorAll('.subtype-card').forEach(card => {
+        card.classList.remove('tw-border-primary-900');
+        card.classList.add('tw-border-neutral-200');
+        card.querySelector('.checkmark').classList.add('tw-opacity-0');
+        card.querySelector('.checkmark').classList.remove('tw-opacity-100');
+    });
+
+    element.classList.remove('tw-border-neutral-200');
+    element.classList.add('tw-border-primary-900');
+    element.querySelector('.checkmark').classList.remove('tw-opacity-0');
+    element.querySelector('.checkmark').classList.add('tw-opacity-100');
+
+    const subtype = element.getAttribute('data-subtype');
+    sessionStorage.setItem('plotSubType', subtype);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const savedType = sessionStorage.getItem('plotType');
+    if (savedType) {
+        const typeCard = document.querySelector(`[data-type="${savedType}"]`);
+        if (typeCard) selectType(typeCard);
+    }
+
+    const savedSub = sessionStorage.getItem('plotSubType');
+    if (savedSub) {
+        const subCard = document.querySelector(`[data-subtype="${savedSub}"]`);
+        if (subCard) selectSubtype(subCard);
+    }
+});
+
+function validateAndContinue() {
+    const type = sessionStorage.getItem('plotType');
+    if (!type) {
+        document.getElementById('type-error').classList.remove('tw-hidden');
+        document.getElementById('type-error').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    if (type === 'Trapézové plechy') {
+        const sub = sessionStorage.getItem('plotSubType');
+        if (!sub) {
+            document.getElementById('subtype-error').classList.remove('tw-hidden');
+            document.getElementById('subtype-error').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+    }
+
+    window.location.href = '/angebot/plot-farba/';
+}
+
+function goBack() {
+    window.location.href = '/angebot/berechnung/';
+}
+</script>
+
+<?php get_footer(); ?>
