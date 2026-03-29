@@ -1,0 +1,219 @@
+/* -------- Base -------- */
+.igp-form {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a1a2e;
+}
+
+/* -------- Progress -------- */
+.igp-progress {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 0 24px;
+}
+
+.igp-progress-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+}
+
+.igp-progress-connector {
+  flex: 1;
+  height: 2px;
+  background: #dde2f0;
+  margin-top: 20px;
+  max-width: 80px;
+}
+
+.igp-progress-connector.is-done { background: #4f6ef7; }
+
+.igp-progress-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #dde2f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: #aaa;
+  background: #fff;
+}
+
+.igp-progress-item.is-done .igp-progress-circle {
+  background: #4f6ef7;
+  border-color: #4f6ef7;
+  color: #fff;
+}
+
+.igp-progress-item.is-active .igp-progress-circle {
+  border-color: #4f6ef7;
+  color: #4f6ef7;
+}
+
+.igp-progress-label {
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #bbb;
+  text-align: center;
+}
+
+.igp-progress-sub {
+  font-size: 10px;
+  color: #ccc;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.igp-progress-item.is-active .igp-progress-label,
+.igp-progress-item.is-done  .igp-progress-label { color: #4f6ef7; }
+
+.igp-progress-item.is-active .igp-progress-sub,
+.igp-progress-item.is-done  .igp-progress-sub   { color: #7d96fb; }
+
+/* -------- Step body -------- */
+.igp-step-body {
+  padding: 8px 0 24px;
+}
+
+.igp-step-body h2 {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.igp-step-body h2 span { font-weight: 400; }
+
+.igp-step-desc {
+  color: #888;
+  font-style: italic;
+  margin: 0 0 32px;
+  font-size: 14px;
+}
+
+.igp-group {
+  margin-bottom: 32px;
+}
+
+.igp-group h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  margin: 0 0 12px;
+}
+
+/* -------- Cards -------- */
+.igp-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.igp-card {
+  flex: 1;
+  min-width: 140px;
+  border: 1.5px solid #e4e8f5;
+  border-radius: 14px;
+  padding: 22px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  user-select: none;
+}
+
+.igp-card:hover {
+  border-color: #a0b0f5;
+  box-shadow: 0 2px 12px rgba(79, 110, 247, .08);
+}
+
+.igp-card.is-selected {
+  border-color: #4f6ef7;
+  background: #f4f6ff;
+  box-shadow: 0 4px 16px rgba(79, 110, 247, .14);
+}
+
+.igp-card-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  pointer-events: none;
+}
+
+.igp-card small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #888;
+}
+
+.igp-card-sub {
+  font-size: 12px;
+  color: #888;
+  pointer-events: none;
+}
+
+/* -------- Validation error -------- */
+.igp-error {
+  color: #d63031;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 8px 0 0;
+}
+
+/* -------- Actions -------- */
+.igp-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #eef0f8;
+}
+
+.igp-btn {
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: 1.5px solid #dde2f0;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #fff;
+  color: #555;
+  transition: background .15s, color .15s, border-color .15s;
+}
+
+.igp-btn:hover { background: #f4f4f8; }
+
+.igp-btn--primary {
+  background: #4f6ef7;
+  color: #fff;
+  border-color: #4f6ef7;
+}
+
+.igp-btn--primary:hover { background: #3a5be0; border-color: #3a5be0; }
+
+.igp-btn--success {
+  background: #00b894;
+  color: #fff;
+  border-color: #00b894;
+}
+
+.igp-btn--success:hover { background: #00997a; border-color: #00997a; }
+
+/* -------- Responsive -------- */
+@media (max-width: 600px) {
+  .igp-cards { flex-direction: column; }
+  .igp-progress-label, .igp-progress-sub { display: none; }
+  .igp-progress-connector { max-width: 24px; }
+}
