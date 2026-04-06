@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="sk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Klimatizácia — výber triedy a produktu | Lokalny test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap">
+    <link rel="stylesheet" href="wordpress-theme/igp-form/css/form.css">
+</head>
+<body>
+
+<nav class="navbar navbar-dark mb-0" style="background:var(--igp-navy);">
+    <div class="container-fluid px-4">
+        <span class="navbar-brand fw-bold small">🧪 Lokalny test</span>
+        <div class="d-flex gap-2">
+            <a class="btn btn-sm btn-outline-light" href="test-rozcestnik.html">← Hlavný rozcestník</a>
+            <a class="btn btn-sm btn-outline-light" href="test-klimatizacia-formular.html">Formular →</a>
+        </div>
+    </div>
+</nav>
+
+<header class="igp-header">
+    <span class="igp-logo-text">MALLAY <small style="font-weight:400;font-size:.55em;">SLOVAKIA</small></span>
+</header>
+
+<div class="igp-page-container" style="max-width:1100px;">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold" style="color:var(--igp-navy);font-size:2rem;">Vyberte si ideálnu klímu</h1>
+        <p class="text-muted mx-auto" style="max-width:580px;">
+            Porovnajte technologické úrovne klimatizácií a nájdite riešenie,
+            ktoré presne vyhovuje vašim potrebám a rozpočtu.
+        </p>
+    </div>
+
+    <!-- SEKCIA 1 — Tabuľka tried -->
+    <div id="igp-triedy-sekcia">
+        <div class="igp-compare-wrap mb-5">
+            <table class="igp-compare-table">
+                <thead>
+                    <tr>
+                        <th style="width:160px;"><span style="color:var(--igp-primary);font-size:1rem;font-weight:700;">Porovnanie</span></th>
+                        <th>
+                            <span class="igp-class-name">ZÁKLAD</span>
+                            <span class="igp-class-price">od 800 €</span>
+                        </th>
+                        <th>
+                            <span class="igp-class-name">KOMFORT</span>
+                            <span class="igp-class-price">od 1 000 €</span>
+                        </th>
+                        <th class="igp-col-popular-wrap">
+                            <span class="igp-popular-badge">Populárna</span>
+                            <span class="igp-class-name">POKROČILÁ</span>
+                            <span class="igp-class-price">od 1 200 €</span>
+                        </th>
+                        <th>
+                            <span class="igp-class-name">PRÉMIOVÁ</span>
+                            <span class="igp-class-price">od 2 000 €</span>
+                        </th>
+                        <th>
+                            <span class="igp-class-name">INDIVIDUÁLNA PONUKA</span>
+                            <span class="igp-class-individual">Na mieru</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Energetická účinnosť<br><small class="text-muted">chladenia / kúrenia</small></td>
+                        <td>A++ / A+</td>
+                        <td>A++ / A++</td>
+                        <td class="igp-col-popular">A+++ / A++</td>
+                        <td>A+++ / A+++</td>
+                        <td><span class="igp-check-no"><i class="bi bi-dash-lg"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td>Ovládanie lamiel</td>
+                        <td>Horizontálne</td>
+                        <td>Horizontálne i vertikálne</td>
+                        <td class="igp-col-popular"><strong>Horizontálne i vertikálne</strong></td>
+                        <td>Horizontálne i vertikálne</td>
+                        <td><span class="igp-check-no"><i class="bi bi-dash-lg"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td>Pokročilé filtre</td>
+                        <td><span class="igp-check-no"><i class="bi bi-x-lg"></i></span></td>
+                        <td><span class="igp-check-no"><i class="bi bi-x-lg"></i></span></td>
+                        <td class="igp-col-popular">
+                            <span class="igp-check-yes"><i class="bi bi-check-circle-fill"></i></span>
+                            <small class="ms-1">Áno</small>
+                        </td>
+                        <td>
+                            <span class="igp-check-yes"><i class="bi bi-check-circle-fill"></i></span>
+                            <small class="ms-1">Áno</small>
+                        </td>
+                        <td><span class="igp-check-no"><i class="bi bi-dash-lg"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td>Moderný dizajn</td>
+                        <td><span class="igp-check-no"><i class="bi bi-x-lg"></i></span></td>
+                        <td><span class="igp-check-no"><i class="bi bi-x-lg"></i></span></td>
+                        <td class="igp-col-popular"><span class="igp-check-no"><i class="bi bi-x-lg"></i></span></td>
+                        <td>
+                            <span class="igp-check-yes"><i class="bi bi-check-circle-fill"></i></span>
+                            <small class="ms-1">Áno</small>
+                        </td>
+                        <td><span class="igp-check-no"><i class="bi bi-dash-lg"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button class="igp-btn-outline w-100"
+                                    onclick="igpVyberTriedu('Základ','od 800 €','zaklad')">
+                                Mám záujem
+                            </button>
+                        </td>
+                        <td>
+                            <button class="igp-btn-outline w-100"
+                                    onclick="igpVyberTriedu('Komfort','od 1 000 €','komfort')">
+                                Mám záujem
+                            </button>
+                        </td>
+                        <td class="igp-col-popular">
+                            <button class="igp-btn-primary w-100"
+                                    onclick="igpVyberTriedu('Pokročilá','od 1 200 €','pokrocila')">
+                                VYBRAŤ
+                            </button>
+                        </td>
+                        <td>
+                            <button class="igp-btn-outline w-100"
+                                    onclick="igpVyberTriedu('Prémiová','od 2 000 €','premiova')">
+                                Mám záujem
+                            </button>
+                        </td>
+                        <td>
+                            <a href="test-klimatizacia-pre-formular.html"
+                               class="igp-btn-outline w-100 text-center d-block"
+                               onclick="IGPForm.save('vyber_triedy','individual')">
+                                Kontaktovať
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Prečo si vybrať nás -->
+        <div class="row align-items-center g-4 mb-5">
+            <div class="col-12 col-md-6">
+                <h2 class="fw-bold mb-3" style="color:var(--igp-navy);">Prečo si vybrať montáž od nás?</h2>
+                <div class="d-flex align-items-start gap-3 mb-3">
+                    <div style="width:40px;height:40px;background:var(--igp-primary-bg);border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                        <i class="bi bi-shield-check text-primary"></i>
+                    </div>
+                    <div>
+                        <strong>Máme za sebou už tisícku montáží</strong>
+                        <p class="text-muted small mb-0">Overte si recenzie na Google. Nie je nič horšie ako odflaknutá montáž a nespoľahlivý servis.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start gap-3">
+                    <div style="width:40px;height:40px;background:var(--igp-primary-bg);border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                        <i class="bi bi-award text-primary"></i>
+                    </div>
+                    <div>
+                        <strong>Predĺžená záruka 5 rokov</strong>
+                        <p class="text-muted small mb-0">Veríme značkám s ktorými spolupracujeme, aj preto vám ponúkame predĺženú ochranu.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div style="height:220px;background:linear-gradient(135deg,#c7d7f0,#8ca9d6);border-radius:16px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEKCIA 2 — Porovnanie produktov -->
+    <div id="igp-produkty-sekcia" class="igp-hidden">
+
+        <div class="d-flex align-items-center gap-3 mb-3">
+            <button class="igp-btn-outline"
+                    onclick="document.getElementById('igp-produkty-sekcia').classList.add('igp-hidden');window.scrollTo({top:0,behavior:'smooth'})">
+                ← Zmeniť triedu
+            </button>
+            <div>
+                <h2 class="fw-bold mb-0" style="font-size:1.6rem;color:var(--igp-navy);">
+                    Odporúčané klimatizácie a ich porovnanie
+                </h2>
+                <p class="text-muted mb-0 small" id="produkty-trieda-label"></p>
+            </div>
+        </div>
+        <p class="text-muted mb-4" style="max-width:620px;">
+            Máme za sebou tisícky montáží. Vieme čo je dobré a kvalitné.
+            V prípade záujmu kliknite na mám záujem.
+        </p>
+
+        <div id="igp-produkty-container" class="row g-4 mb-4"></div>
+        <div id="igp-param-container" class="igp-compare-wrap mb-5"></div>
+
+    </div>
+
+    <!-- Debug -->
+    <div class="igp-debug-wrap mt-4">
+        <div class="igp-debug-heading">🛠 SessionStorage — aktuálne hodnoty</div>
+        <div id="igp-debug-panel"></div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="wordpress-theme/igp-form/js/form.js"></script>
+<script>
+var DEMO_PRODUCTS = [
+    { id:1, name:'Daikin Comfora 3,5 kW', price:'1 199 €', power:'3,5 kW', eff:'A++',  noise:'19 dB', featured:false },
+    { id:2, name:'Mitsubishi Electric MSZ-HR', price:'1 450 €', power:'4,2 kW', eff:'A+++', noise:'19 dB', featured:true  },
+    { id:3, name:'LG Standard Plus', price:'999 €',   power:'3,5 kW', eff:'A++',  noise:'22 dB', featured:false },
+];
+
+function igpVyberTriedu(title, price, slug) {
+    IGPForm.save('vyber_triedy',      title);
+    IGPForm.save('vyber_triedy_cena', price);
+    IGPForm.save('vyber_triedy_slug', slug);
+    IGPForm.sendGA('rozcestnik_trieda_click', { trieda: title });
+
+    document.getElementById('produkty-trieda-label').textContent = 'Trieda: ' + title;
+    document.getElementById('igp-produkty-sekcia').classList.remove('igp-hidden');
+    document.getElementById('igp-produkty-sekcia').scrollIntoView({ behavior:'smooth', block:'start' });
+    renderProdukty();
+}
+
+function renderProdukty() {
+    var container     = document.getElementById('igp-produkty-container');
+    var paramContainer = document.getElementById('igp-param-container');
+
+    var html = '';
+    DEMO_PRODUCTS.forEach(function(p) {
+        html += '<div class="col-12 col-md-4"><div class="igp-product-card h-100">';
+        if (p.featured) html += '<span class="igp-nas-tip-badge">Náš tip</span>';
+        html += '<img src="" alt="' + p.name + '" style="background:#E5E7EB;">';
+        html += '<div class="igp-product-name mb-1">' + p.name + '</div>';
+        html += '<div class="igp-product-price">' + p.price + '</div>';
+        html += '<button type="button" class="' + (p.featured ? 'igp-btn-primary' : 'igp-btn-outline') + ' w-100"';
+        html += ' onclick="vyberProdukt(' + p.id + ',\'' + p.name.replace(/'/g,"\\'") + '\',\'' + p.price + '\')">';
+        html += 'Mám záujem</button></div></div>';
+    });
+    container.innerHTML = html;
+
+    var paramht = '<table class="igp-param-table w-100"><thead><tr><th>POROVNÁVANÉ PARAMETRE</th>';
+    DEMO_PRODUCTS.forEach(function(p){ paramht += '<th>' + p.name + '</th>'; });
+    paramht += '</tr></thead><tbody>';
+    var rows = [
+        { label:'Chladiaci výkon',     key:'power' },
+        { label:'Trieda efektívnosti', key:'eff',   highlight:true },
+        { label:'Hlučnosť',            key:'noise'  },
+    ];
+    rows.forEach(function(row) {
+        paramht += '<tr><td>' + row.label + '</td>';
+        DEMO_PRODUCTS.forEach(function(p) {
+            var isBest = row.highlight && p.featured;
+            paramht += '<td' + (isBest ? ' class="igp-param-highlight"' : '') + '>' + p[row.key] + '</td>';
+        });
+        paramht += '</tr>';
+    });
+    paramht += '</tbody></table>';
+    paramContainer.innerHTML = paramht;
+}
+
+function vyberProdukt(id, name, price) {
+    IGPForm.save('vyber_produktu_id',    id);
+    IGPForm.save('vyber_produktu_nazov', name);
+    IGPForm.save('vyber_produktu_cena',  price);
+    IGPForm.sendGA('rozcestnik_produkt_click', { produkt: name });
+    window.location.href = 'test-klimatizacia-formular.html';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var savedSlug = IGPForm.get('vyber_triedy_slug');
+    if (savedSlug) {
+        document.getElementById('igp-produkty-sekcia').classList.remove('igp-hidden');
+        document.getElementById('produkty-trieda-label').textContent = 'Trieda: ' + (IGPForm.get('vyber_triedy') || savedSlug);
+        renderProdukty();
+    }
+});
+</script>
+</body>
+</html>

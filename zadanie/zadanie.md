@@ -54,28 +54,33 @@ KLIMATIZACIA
             - ako obrazok tam bude featured image daneho itemu, nazov sa vezme Title danej page, cena z "form-price" resp/ "form-power", "form-class", "form-noise"
             - ked sa klikne na button "Mam zaujem" ktory je na screenshote pod cenou, tak sa ulozi do storage vsetky info (vyber-triedy, vyber-produktu) a nasledne prejde na /kalkulacia klimatizacia-formular
 
-    PRE-FORMULAR: /kalkulacia-klimatizacia-pre-formular
-    - simple vylistovanie formulara zadefinovaneho cez acf na danej page ako nizsie na klasickom formulari
-    - 
+    PRE-FORMULAR: /kalkulacia-klimatizacia-pre-formular (v pripade vyberu individual)
+    - simple vylistovanie formulara podla dizajnu ako hlavny formular. Toto bude one-page formular na konci s tlacitkom pokracovat ktory bude odkazovat na /kalkulacia-klimatizacia-formular. Predtym ale pouklada vsetko do session nech sa to vie spracovat pocas populacie emailu
+    Rozmer miestnosti	
+        - jedna miestnosť do 25m2	
+        - jedna miestnosť 25 - 50m2	
+        - viac uzavretých miestnosti (multisplit riešenie)
+    Predpríprava	
+        - nie nemám	
+        - mám rozvody v stene (pošli fotku)	
+    Filtrácia	
+        - stačí základný filter	
+        - som alergik astmatik	
+    Farebné prevedenie	
+        - Biela	
+        - Čierna / tmavomodrá / strieborná / červená , ...	
+    Využitie	
+        - chladenie v lete / prikrurovanie v prechodnom období	
+        - ako hlavný zdroj v zime	
+    Prevedenie	
+        - Základ (basic)	
+        - Komfort (Comfort)	
+        - Pokročilá (Advanced)
 
     FORMULAR: /kalkulacia-klimatizacia-formular
-    - obrazky - zadanie/klimatizacia/formular
-    - navigacna cast formulara - kroky (vrch stranky) bude genericka (cez parameter sa posunu potrebne  info)
-
-    - na zadefinovanie formulara a fieldov, som vytvoril acf strukturu kde si to zadefinujem a ty to len vykreslis
-    ACF name "build-your-form"
-        - je to repeater na definiciu Kroku(acf name "step" type repeater) a knemu prisluchajucemu ID (acf name "identification")
-        - Krok obsauje subfieldy: 
-            - "question" type of text - toto sluzi na vypisanie otazky
-            - "value" type of repeater - toto sluzi na vypisanie moznych moznosti na zakliknutie
-            - "identification" type of text - ID na dany node (moze byt pouzity v classe, alebo niekde inde ako sa bude robit nejake custom rozsirenie tak sa to zide)
-            - "ishidden" type of true/false - zapnutie/vypnutie tejto casti na frontende (moze sa pouzit aj pri zbierani dat do session/ zadania formulara)
-        - Value obsahuju subfieldy (podla poctu budes vediet ake bootstrap classy budes pouzivat aby to bolo vzdy rovnomerne rozhodene do riadku - dbaj aj na mobilny web):
-            - "identification" type of text - ID na dany node (moze byt pouzity v classe, alebo niekde inde ako sa bude robit nejake custom rozsirenie tak sa to zide)
-            - "label" type of WISYWIG editor- html zobrazenie danej moznosti.. bude sa tam pouzivat bold, tooltipy atd.. tak nech to tam je
-            - "icon" type of Image - toto bude ako ikonka nad text
-            - "ishidden" type of true/false - zapnutie/vypnutie tejto casti na frontende (moze sa pouzit aj pri zbierani dat do session/ zadania formulara)
-            - "multiselect" type of true/false - if false, len jeden field v ramci otazky vie byt zakliknuty, ak true tak viacero
+        - obrazky - zadanie/klimatizacia/formular
+        - navigacna cast formulara - kroky (vrch stranky) bude genericka (cez parameter sa posunu potrebne  info)
+        - podla poctu values budes vediet ake bootstrap classy budes pouzivat aby to bolo vzdy rovnomerne rozhodene do riadku - (dbaj aj na mobilny web):
 
     - krok1 
         - obrazky: krok1-byt-collapsed.png, krok1-byt-field-shown-after-selection.png
@@ -83,29 +88,32 @@ KLIMATIZACIA
 
     - krok2
         - obrazky: krok2-additional fields-jedna miestnost.png, krok2-dve a viac-extended fields.png
-        - tu vidiet nejake conditional fields ked sa klikne jedna miestnost.. (na to vykreslenie mozes pouzit ID ktore je dostupne v acf rozpisanom vyssie. Na rozsirenie sprav nejaku genericku funkciu ktora sa da vyuzit na viacerych miestach)
+        - tu vidiet nejake conditional fields ked sa klikne jedna miestnost..
+            - Aká je plocha miestnosti v m²?
+            - Aká je výška stropu v m?
+
         - taktiez aj dve a viac miestnosti
+            -Máte projekt domu?            Áno            Nie
+            - miestnosti, tu sa bude pridavat odoberat miestnost ako na screenshote. Skus najst dobry sposob ako to ukladat do session nech to vieme vylistovat vo finalnom kroku
+            Pridajte miestnosti:            + Pridať miestnosť
+            Názov miestnosti            Plocha (m²)            Výška (m)            Odstrániť
+            Napr. Obývačka              25                      2.7            Názov miestnosti
 
     - krok 3 krok3.png
-        - zobrazi podla zadania z acf
+        - zobrazi podla zadania zo screenshotu
 
     - krok 4 krok4.png
-        - zobrazi podla zadania z acf
+        - zobrazi podla zadania zo screenshotu
 
     - krok 5 krok5.png
         - zobrazi danu klimu ktoru si na zaciatku selectol
         - po kliknuti na "Chcem spracovat presnu kalkulaciu" presmeruje na:
 
-    predstavujem si to tak ze do session sa vlozi:
-
-    key-value
-    question-id : answer-id
-
     na zaklade toho sa vysklada potom mail na zaver
-
 
     VYHODNOTENIE: /kalkulacia-klimatizacia-vyhodnotenie
     - zadanie\klimatizacia\vyhodnotenie\summary after button click.png
     - tu sa vyzbieraju submitnute data a odosle sa email
     - data do formulara sa budu tahat zo sessionStorage
 
+session key-value rob tak aby sa to nakonci dalo dobre listovat... neviem ci nejakym commandom vies vylistovat vsetky ulozene sessionStorages ktore sa zacinaju nejakym prefixom, ale sprav tot ak aby to slo pekne prehladne
