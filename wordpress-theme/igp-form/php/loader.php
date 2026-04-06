@@ -124,7 +124,10 @@ function igp_handle_form_submission() {
     $ga_id = sanitize_text_field( wp_unslash( $_POST['ga_id'] ?? '' ) );
 
     // ── Build email body ──────────────────────────────────────────────────────
-    $admin_email = get_option( 'admin_email' );
+    $recipient_email = [
+        'm.zoldos@gmail.com',   // WordPress admin email
+        // 'dalsi@email.sk',           // ďalší príjemca
+    ];
     $subject     = 'Nová kalkulácia klimatizácie – ' . $meno;
 
     $body  = "Nová žiadosť o cenovú ponuku klimatizácie\n";
@@ -146,10 +149,11 @@ function igp_handle_form_submission() {
 
     $headers = [
         'Content-Type: text/plain; charset=UTF-8',
+        'From: Mallay Slovakia <info@mallay.sk>',
         'Reply-To: ' . $meno . ' <' . $email . '>',
     ];
 
-    $sent = wp_mail( $admin_email, $subject, $body, $headers );
+    $sent = wp_mail( $recipient_email, $subject, $body, $headers );
 
     if ( $sent ) {
         wp_send_json_success( [ 'message' => 'Ďakujeme! Budeme vás čoskoro kontaktovať.' ] );

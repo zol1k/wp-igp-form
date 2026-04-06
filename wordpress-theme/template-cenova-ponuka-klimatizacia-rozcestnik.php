@@ -97,6 +97,31 @@ if ( empty($classes) ) {
 }
 
 $total_cols = count($classes) + 1; // +1 pre Individuálnu ponuku
+
+// ── Produkty z ACF related postov (pre JS) ───────────────────────────────────
+// Pre každú triedu zozbiera dáta z priradených product postov.
+// Fieldy na product poste: price, power, efficiency, noise, featured (True/False)
+// Obrázok = featured image postu.
+$products_by_slug = [];
+foreach ( $classes as $cls ) {
+    $slug     = sanitize_title( $cls['title'] );
+    $products = [];
+    foreach ( $cls['related'] as $post ) {
+        if ( ! $post ) continue;
+        $pid        = is_object( $post ) ? $post->ID : (int) $post;
+        $products[] = [
+            'id'       => $pid,
+            'name'     => get_the_title( $pid ),
+            'price'    => (string) ( get_field( 'price',      $pid ) ?: '' ),
+            'power'    => (string) ( get_field( 'power',      $pid ) ?: '' ),
+            'eff'      => (string) ( get_field( 'efficiency', $pid ) ?: '' ),
+            'noise'    => (string) ( get_field( 'noise',      $pid ) ?: '' ),
+            'img'      => (string) ( get_the_post_thumbnail_url( $pid, 'medium' ) ?: '' ),
+            'featured' => (bool)     get_field( 'featured',   $pid ),
+        ];
+    }
+    $products_by_slug[ $slug ] = $products;
+}
 ?>
 
 <div class="igp-page-container" style="max-width:1100px;">
@@ -231,7 +256,7 @@ $total_cols = count($classes) + 1; // +1 pre Individuálnu ponuku
             </table>
         </div>
 
-        <!-- Prečo si vybrať montáž od nás -->
+        <!-- Prečo si vybrať montáž od nás
         <div class="row align-items-center g-4 mb-5">
             <div class="col-12 col-md-6">
                 <h2 class="fw-bold mb-3" style="color:var(--igp-navy);">Prečo si vybrať montáž od nás?</h2>
@@ -257,7 +282,7 @@ $total_cols = count($classes) + 1; // +1 pre Individuálnu ponuku
             <div class="col-12 col-md-6">
                 <div style="height:220px;background:linear-gradient(135deg,#c7d7f0,#8ca9d6);border-radius:16px;"></div>
             </div>
-        </div>
+        </div> -->
     </div><!-- /#igp-triedy-sekcia -->
 
     <!-- ─────────────────────── SEKCIA 2 — Porovnanie produktov ──────────── -->
@@ -295,6 +320,10 @@ $total_cols = count($classes) + 1; // +1 pre Individuálnu ponuku
 
 <!-- ── Inline JS pre túto stránku ─────────────────────────────────────────── -->
 <script>
+// ACF produkty odovzdané z PHP — kľúč = slug triedy
+var igpProductsBySlug = <?php echo wp_json_encode( $products_by_slug ); ?>;
+</script>
+<script>
 /**
  * Zavolaný po kliknutí "Mám záujem / VYBRAŤ" v tabuľke tried.
  * Uloží vybranú triedu, odskroluje na sekciu 2 a vykreslí produkty z ACF.
@@ -319,46 +348,22 @@ function igpVyberTriedu(title, price, slug) {
 
 /**
  * Vykreslí produkty pre vybranú triedu.
- * V produkčnom nasadení sa produkty načítajú cez AJAX (alebo sú inline v data-products atribúte).
- * Tu je ukážková logika – produkty sú vopred odovzdané z PHP.
+ * Dáta sú odovzdané z PHP cez igpProductsBySlug (wp_json_encode).
  */
 function igpRenderProdukty(slug) {
-    var container    = document.getElementById('igp-produkty-container');
+    var container      = document.getElementById('igp-produkty-container');
     var paramContainer = document.getElementById('igp-param-container');
 
-    // Statické demo produkty — v produkcii nahradiť AJAX volaním alebo PHP inline data
-    var demoProducts = [
-        {
-            id:      1,
-            name:    'Daikin Comfora 3,5 kW',
-            price:   '1 199 €',
-            power:   '3,5 kW',
-            eff:     'A++',
-            noise:   '19 dB',
-            img:     '',
-            featured: false,
-        },
-        {
-            id:      2,
-            name:    'Mitsubishi Electric MSZ-HR',
-            price:   '1 450 €',
-            power:   '4,2 kW',
-            eff:     'A+++',
-            noise:   '19 dB',
-            img:     '',
-            featured: true,
-        },
-        {
-            id:      3,
-            name:    'LG Standard Plus',
-            price:   '999 €',
-            power:   '3,5 kW',
-            eff:     'A++',
-            noise:   '22 dB',
-            img:     '',
-            featured: false,
-        },
-    ];
+    // Produkty z ACF pre danú triedu; fallback na prázdne pole
+    var demoProducts = (igpProductsBySlug && igpProductsBySlug[slug] && igpProductsBySlug[slug].length)
+        ? igpProductsBySlug[slug]
+        : [];
+
+    if ( ! demoProducts.length ) {
+        container.innerHTML      = '<p class="text-muted fst-italic">Pre túto triedu zatiaľ nie sú priradené produkty.</p>';
+        paramContainer.innerHTML = '';
+        return;
+    }
 
     // Vykreslenie kariet produktov
     var cardsHtml = '';
