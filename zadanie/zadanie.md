@@ -54,7 +54,7 @@ KLIMATIZACIA
             - ako obrazok tam bude featured image daneho itemu, nazov sa vezme Title danej page, cena z "form-price" resp/ "form-power", "form-class", "form-noise"
             - ked sa klikne na button "Mam zaujem" ktory je na screenshote pod cenou, tak sa ulozi do storage vsetky info (vyber-triedy, vyber-produktu) a nasledne prejde na /kalkulacia klimatizacia-formular
 
-    PRE-FORMULAR: /kalkulacia-klimatizacia-pre-formular (v pripade vyberu individual)
+    FORMULAR: /kalkulacia-klimatizacia-pre-formular (v pripade vyberu individual)
     - simple vylistovanie formulara podla dizajnu ako hlavny formular. Toto bude one-page formular na konci s tlacitkom pokracovat ktory bude odkazovat na /kalkulacia-klimatizacia-formular. Predtym ale pouklada vsetko do session nech sa to vie spracovat pocas populacie emailu
     Rozmer miestnosti	
         - jedna miestnosť do 25m2	
@@ -76,40 +76,6 @@ KLIMATIZACIA
         - Základ (basic)	
         - Komfort (Comfort)	
         - Pokročilá (Advanced)
-
-    FORMULAR: /kalkulacia-klimatizacia-formular
-        - obrazky - zadanie/klimatizacia/formular
-        - navigacna cast formulara - kroky (vrch stranky) bude genericka (cez parameter sa posunu potrebne  info)
-        - podla poctu values budes vediet ake bootstrap classy budes pouzivat aby to bolo vzdy rovnomerne rozhodene do riadku - (dbaj aj na mobilny web):
-
-    - krok1 
-        - obrazky: krok1-byt-collapsed.png, krok1-byt-field-shown-after-selection.png
-        - tu sa vylistuje to co na screenshote stym ze ak sa selectne byt, zobrazi sa dodatocny field na zadanie poschodia
-
-    - krok2
-        - obrazky: krok2-additional fields-jedna miestnost.png, krok2-dve a viac-extended fields.png
-        - tu vidiet nejake conditional fields ked sa klikne jedna miestnost..
-            - Aká je plocha miestnosti v m²?
-            - Aká je výška stropu v m?
-
-        - taktiez aj dve a viac miestnosti
-            -Máte projekt domu?            Áno            Nie
-            - miestnosti, tu sa bude pridavat odoberat miestnost ako na screenshote. Skus najst dobry sposob ako to ukladat do session nech to vieme vylistovat vo finalnom kroku
-            Pridajte miestnosti:            + Pridať miestnosť
-            Názov miestnosti            Plocha (m²)            Výška (m)            Odstrániť
-            Napr. Obývačka              25                      2.7            Názov miestnosti
-
-    - krok 3 krok3.png
-        - zobrazi podla zadania zo screenshotu
-
-    - krok 4 krok4.png
-        - zobrazi podla zadania zo screenshotu
-
-    - krok 5 krok5.png
-        - zobrazi danu klimu ktoru si na zaciatku selectol
-        - po kliknuti na "Chcem spracovat presnu kalkulaciu" presmeruje na:
-
-    na zaklade toho sa vysklada potom mail na zaver
 
     VYHODNOTENIE: /kalkulacia-klimatizacia-vyhodnotenie
     - zadanie\klimatizacia\vyhodnotenie\summary after button click.png

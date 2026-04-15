@@ -2,11 +2,11 @@
 /**
  * Template Name: Cenová ponuka – Klimatizácia pre-formular
  *
- * URL: /kalkulacia-klimatizacia-pre-formular
+ * URL: /cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/
  *
  * One-page formular pre výber Individuálnej ponuky.
  * Po odoslaní uloží všetky hodnoty do sessionStorage a presmeruje
- * na hlavný formular (/kalkulacia-klimatizacia-formular?krok=1).
+ * na vyhodnotenie (/cenova-ponuka-rozcestnik/cenova-ponuka-vyhodnotenie/).
  *
  * Polia:
  *   Rozmer miestnosti  (radio dlaždice)
@@ -26,7 +26,7 @@ igp_render_header();
 <div class="igp-page-container">
 
     <!-- Späť link -->
-    <a href="<?php echo esc_url( home_url('/kalkulacia-klimatizacia') ); ?>"
+    <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/') ); ?>"
        class="igp-btn-outline mb-4 d-inline-block">
         <i class="bi bi-arrow-left me-1"></i> Späť na výber triedy
     </a>
@@ -42,7 +42,7 @@ igp_render_header();
 
         <!-- ── Rozmer miestnosti ──────────────────────────────────────────── -->
         <p class="igp-question-label">Rozmer miestnosti</p>
-        <div id="pf-rozmer" class="row g-3 mb-2">
+        <div id="pf-rozmer" class="igp-option-group row g-3 mb-2">
             <div class="col-12 col-md-4">
                 <div class="igp-option-card" data-value="do25m2">
                     <i class="bi bi-house igp-card-icon"></i>
@@ -66,7 +66,7 @@ igp_render_header();
 
         <!-- ── Predpríprava ───────────────────────────────────────────────── -->
         <p class="igp-question-label">Predpríprava</p>
-        <div id="pf-priprava" class="row g-3 mb-2">
+        <div id="pf-priprava" class="igp-option-group row g-3 mb-2">
             <div class="col-12 col-md-6">
                 <div class="igp-option-card" data-value="nie">
                     <i class="bi bi-x-circle igp-card-icon"></i>
@@ -84,7 +84,7 @@ igp_render_header();
 
         <!-- ── Filtrácia ──────────────────────────────────────────────────── -->
         <p class="igp-question-label">Filtrácia</p>
-        <div id="pf-filtracia" class="row g-3 mb-2">
+        <div id="pf-filtracia" class="igp-option-group row g-3 mb-2">
             <div class="col-12 col-md-6">
                 <div class="igp-option-card" data-value="zakladny">
                     <i class="bi bi-funnel igp-card-icon"></i>
@@ -101,7 +101,7 @@ igp_render_header();
 
         <!-- ── Farebné prevedenie ──────────────────────────────────────────── -->
         <p class="igp-question-label">Farebné prevedenie</p>
-        <div id="pf-farba" class="row g-3 mb-2">
+        <div id="pf-farba" class="igp-option-group row g-3 mb-2">
             <div class="col-12 col-md-6">
                 <div class="igp-option-card" data-value="biela">
                     <i class="bi bi-circle-fill igp-card-icon" style="color:#D1D5DB;"></i>
@@ -118,7 +118,7 @@ igp_render_header();
 
         <!-- ── Využitie ───────────────────────────────────────────────────── -->
         <p class="igp-question-label">Využitie</p>
-        <div id="pf-vyuzitie" class="row g-3 mb-2">
+        <div id="pf-vyuzitie" class="igp-option-group row g-3 mb-2">
             <div class="col-12 col-md-6">
                 <div class="igp-option-card" data-value="chladenie-prechodne">
                     <i class="bi bi-thermometer-half igp-card-icon"></i>
@@ -135,7 +135,7 @@ igp_render_header();
 
         <!-- ── Prevedenie ─────────────────────────────────────────────────── -->
         <p class="igp-question-label">Prevedenie</p>
-        <div id="pf-prevedenie" class="row g-3 mb-2">
+        <div id="pf-prevedenie" class="igp-option-group row g-3 mb-2">
             <div class="col-12 col-md-4">
                 <div class="igp-option-card" data-value="basic">
                     <i class="bi bi-star igp-card-icon"></i>
@@ -161,7 +161,7 @@ igp_render_header();
 
         <!-- ── Odoslanie ──────────────────────────────────────────────────── -->
         <div class="igp-form-nav mt-4">
-            <a href="<?php echo esc_url( home_url('/kalkulacia-klimatizacia') ); ?>"
+            <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/') ); ?>"
                class="igp-btn-outline">Späť</a>
             <button type="button"
                     class="igp-btn-primary"
@@ -189,31 +189,50 @@ document.addEventListener('DOMContentLoaded', function() {
     IGPForm.initCards('#pf-farba',     'preformular_farba',     { gaEvent: 'pf_farba_click'     });
     IGPForm.initCards('#pf-vyuzitie',  'preformular_vyuzitie',  { gaEvent: 'pf_vyuzitie_click'  });
     IGPForm.initCards('#pf-prevedenie','preformular_prevedenie',{ gaEvent: 'pf_prevedenie_click'});
+
+    // Clear validation highlight when a card is selected inside a group
+    document.getElementById('igp-preformular').addEventListener('click', function(e) {
+        var card = e.target.closest('.igp-option-card');
+        if (card) {
+            var group = card.closest('.igp-option-group');
+            if (group) group.classList.remove('igp-group-error');
+        }
+    });
 });
 
 /**
- * Validates that all groups have a selection, then navigates to the main formular.
+ * Validates that all groups have a selection, then navigates to vyhodnotenie.
+ * Invalid groups get a red outline; clears on next card selection via delegation.
  */
 function igpPFPokracovat() {
     var groups = [
-        { id: 'pf-rozmer',     key: 'preformular_rozmer',     label: 'Rozmer miestnosti' },
-        { id: 'pf-priprava',   key: 'preformular_priprava',   label: 'Predpríprava'       },
-        { id: 'pf-filtracia',  key: 'preformular_filtracia',  label: 'Filtrácia'          },
-        { id: 'pf-farba',      key: 'preformular_farba',      label: 'Farebné prevedenie' },
-        { id: 'pf-vyuzitie',   key: 'preformular_vyuzitie',   label: 'Využitie'           },
-        { id: 'pf-prevedenie', key: 'preformular_prevedenie', label: 'Prevedenie'         },
+        { id: 'pf-rozmer',     key: 'preformular_rozmer'     },
+        { id: 'pf-priprava',   key: 'preformular_priprava'   },
+        { id: 'pf-filtracia',  key: 'preformular_filtracia'  },
+        { id: 'pf-farba',      key: 'preformular_farba'      },
+        { id: 'pf-vyuzitie',   key: 'preformular_vyuzitie'   },
+        { id: 'pf-prevedenie', key: 'preformular_prevedenie' },
     ];
 
-    for (var i = 0; i < groups.length; i++) {
-        if (!IGPForm.get(groups[i].key)) {
-            alert('Prosím vyberte možnosť pre: ' + groups[i].label);
-            document.getElementById(groups[i].id).scrollIntoView({ behavior: 'smooth' });
-            return;
+    var firstError = null;
+    groups.forEach(function(g) {
+        var el = document.getElementById(g.id);
+        if ( ! IGPForm.get(g.key) ) {
+            el.classList.add('igp-group-error');
+            if ( ! firstError ) firstError = el;
+        } else {
+            el.classList.remove('igp-group-error');
         }
+    });
+
+    if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        console.warn('[IGP] Pre-formulár — chýba výber v skupine:', firstError.id);
+        return;
     }
 
     IGPForm.sendGA('pf_continue', {});
-    window.location.href = '<?php echo esc_js( home_url('/kalkulacia-klimatizacia-formular?krok=1') ); ?>';
+    window.location.href = '<?php echo esc_js( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-vyhodnotenie/') ); ?>';
 }
 </script>
 

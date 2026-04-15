@@ -2,7 +2,7 @@
 /**
  * Template Name: Cenová ponuka – Klimatizácia rozcestník
  *
- * URL: /kalkulacia-klimatizacia
+ * URL: /cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/
  *
  * Sekcia 1 — tabuľka tried (ACF repeater "aircondproducts")
  *   • Stĺpce = triedy (Základ, Komfort, Pokročilá, Prémiová + Individuálna ponuka)
@@ -112,12 +112,12 @@ foreach ( $classes as $cls ) {
         $products[] = [
             'id'       => $pid,
             'name'     => get_the_title( $pid ),
-            'price'    => (string) ( get_field( 'price',      $pid ) ?: '' ),
-            'power'    => (string) ( get_field( 'power',      $pid ) ?: '' ),
-            'eff'      => (string) ( get_field( 'efficiency', $pid ) ?: '' ),
-            'noise'    => (string) ( get_field( 'noise',      $pid ) ?: '' ),
+            'price'    => (string) ( get_field( 'aircond-price-calc',      $pid ) ?: '' ),
+            'power'    => (string) ( get_field( 'aircond-power-calc',      $pid ) ?: '' ),
+            'eff'      => (string) ( get_field( 'aircond-efficiency-calc', $pid ) ?: '' ),
+            'noise'    => (string) ( get_field( 'aircond-noise-calc',      $pid ) ?: '' ),
             'img'      => (string) ( get_the_post_thumbnail_url( $pid, 'medium' ) ?: '' ),
-            'featured' => (bool)     get_field( 'featured',   $pid ),
+            'featured' => (bool)     get_field( 'aircond-featured-calc',   $pid ),
         ];
     }
     $products_by_slug[ $slug ] = $products;
@@ -245,7 +245,7 @@ foreach ( $classes as $cls ) {
                             </td>
                         <?php endforeach; ?>
                         <td>
-                            <a href="<?php echo esc_url( home_url('/kalkulacia-klimatizacia-pre-formular') ); ?>"
+                            <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>"
                                class="igp-btn-outline w-100 text-center"
                                onclick="IGPForm.save('vyber_triedy','individual'); IGPForm.sendGA('rozcestnik_individual_click',{});">
                                 Kontaktovať
@@ -297,15 +297,9 @@ foreach ( $classes as $cls ) {
             V prípade záujmu kliknite na mám záujem.
         </p>
 
-        <!-- Slider wrapper (Bootstrap carousel pre mobile) -->
-        <div id="igp-produkty-container" class="row g-4 mb-4">
-            <!-- Produkty sa vykreslia JavaScriptom (alebo PHP pri PHP renderovaní z ACF) -->
+        <!-- Produkty + porovnanie parametrov — vykresľuje sa JS ako jednotná tabuľka -->
+        <div id="igp-produkty-container" class="mb-5">
             <p class="text-muted fst-italic">Načítavam produkty...</p>
-        </div>
-
-        <!-- Tabuľka parametrov -->
-        <div id="igp-param-container" class="igp-compare-wrap mb-5">
-            <!-- Parametre sa vykreslia JS -->
         </div>
 
     </div><!-- /#igp-produkty-sekcia -->
@@ -347,66 +341,66 @@ function igpVyberTriedu(title, price, slug) {
 }
 
 /**
- * Vykreslí produkty pre vybranú triedu.
- * Dáta sú odovzdané z PHP cez igpProductsBySlug (wp_json_encode).
+ * Vykreslí produkty pre vybranú triedu ako jednotnú zarovnanú tabuľku.
+ * Cards produktov sú v thead, parametre v tbody — stĺpce sa vždy zarovnajú.
  */
 function igpRenderProdukty(slug) {
-    var container      = document.getElementById('igp-produkty-container');
-    var paramContainer = document.getElementById('igp-param-container');
+    var container = document.getElementById('igp-produkty-container');
 
     // Produkty z ACF pre danú triedu; fallback na prázdne pole
-    var demoProducts = (igpProductsBySlug && igpProductsBySlug[slug] && igpProductsBySlug[slug].length)
+    var products = (igpProductsBySlug && igpProductsBySlug[slug] && igpProductsBySlug[slug].length)
         ? igpProductsBySlug[slug]
         : [];
 
-    if ( ! demoProducts.length ) {
-        container.innerHTML      = '<p class="text-muted fst-italic">Pre túto triedu zatiaľ nie sú priradené produkty.</p>';
-        paramContainer.innerHTML = '';
+    if ( ! products.length ) {
+        container.innerHTML = '<p class="text-muted fst-italic">Pre túto triedu zatiaľ nie sú priradené produkty.</p>';
         return;
     }
 
-    // Vykreslenie kariet produktov
-    var cardsHtml = '';
-    demoProducts.forEach(function(p) {
-        cardsHtml += '<div class="col-12 col-md-4">';
-        cardsHtml += '<div class="igp-product-card h-100">';
-        if (p.featured) {
-            cardsHtml += '<span class="igp-nas-tip-badge">Náš tip</span>';
-        }
-        cardsHtml += '<img src="' + (p.img || '') + '" alt="' + p.name + '" style="background:#e5e7eb;">';
-        cardsHtml += '<div class="igp-product-name mb-1">' + p.name + '</div>';
-        cardsHtml += '<div class="igp-product-price">' + p.price + '</div>';
-        cardsHtml += '<button type="button" class="' + (p.featured ? 'igp-btn-primary' : 'igp-btn-outline') + ' w-100"';
-        cardsHtml += ' onclick="igpVyberProdukt(' + p.id + ', \'' + p.name.replace(/'/g,"\\'"
-) + '\', \'' + p.price + '\')">';
-        cardsHtml += 'Mám záujem';
-        cardsHtml += '</button></div></div>';
-    });
-    container.innerHTML = cardsHtml;
-
-    // Vykreslenie tabuľky parametrov
     var params = [
-        { label: 'Chladiaci výkon',     values: demoProducts.map(function(p) { return p.power; }) },
-        { label: 'Trieda efektívnosti', values: demoProducts.map(function(p) { return p.eff; }), highlightMax: true },
-        { label: 'Hlučnosť',            values: demoProducts.map(function(p) { return p.noise; }) },
+        { label: 'Chladiaci výkon',     key: 'power' },
+        { label: 'Trieda efektívnosti', key: 'eff',   highlight: true },
+        { label: 'Hlučnosť',            key: 'noise' },
     ];
 
-    var paramHtml = '<table class="igp-param-table w-100">';
-    paramHtml    += '<thead><tr><th>POROVNÁVANÉ PARAMETRE</th>';
-    demoProducts.forEach(function(p) {
-        paramHtml += '<th>' + p.name + '</th>';
+    // Jednotná tabuľka — product cards v thead, parametre v tbody
+    var minW = 160 + products.length * 190;
+    var html = '<div class="igp-compare-wrap">';
+    html += '<table class="igp-param-table" style="min-width:' + minW + 'px;">';
+
+    // ── thead: product card columns ──────────────────────────────────────
+    html += '<thead><tr>';
+    html += '<th style="min-width:160px;background:#F1F5F9;">POROVNÁVANÉ PARAMETRE</th>';
+    products.forEach(function(p) {
+        html += '<th style="background:#fff;vertical-align:top;padding:16px 14px;min-width:190px;border-bottom:2px solid var(--igp-border);">';
+        html += '<div class="igp-product-col-inner">';
+        if (p.featured) {
+            html += '<span class="igp-nas-tip-badge">Náš tip</span>';
+        }
+        html += '<img src="' + (p.img || '') + '" alt="' + p.name + '">';
+        html += '<span class="igp-product-col-name">' + p.name + '</span>';
+        html += '<span class="igp-product-col-price">' + p.price + '</span>';
+        html += '<button type="button" class="' + (p.featured ? 'igp-btn-primary' : 'igp-btn-outline') + ' w-100"';
+        html += ' onclick="igpVyberProdukt(' + p.id + ',\'' + p.name.replace(/'/g, "\\'") + '\',\'' + p.price + '\')">Mám záujem</button>';
+        html += '</div></th>';
     });
-    paramHtml += '</tr></thead><tbody>';
+    html += '</tr></thead>';
+
+    // ── tbody: param rows ────────────────────────────────────────────────
+    html += '<tbody>';
     params.forEach(function(row) {
-        paramHtml += '<tr><td>' + row.label + '</td>';
-        row.values.forEach(function(v, i) {
-            var isHighlight = row.highlightMax && demoProducts[i].featured;
-            paramHtml += '<td' + (isHighlight ? ' class="igp-param-highlight"' : '') + '>' + v + '</td>';
+        html += '<tr><td style="font-weight:500;color:#4B5563;">' + row.label + '</td>';
+        products.forEach(function(p) {
+            var val = p[row.key] || '—';
+            var cls = (row.highlight && p.featured) ? ' class="igp-param-highlight"' : '';
+            html += '<td' + cls + '>' + val + '</td>';
         });
-        paramHtml += '</tr>';
+        html += '</tr>';
     });
-    paramHtml += '</tbody></table>';
-    paramContainer.innerHTML = paramHtml;
+    html += '</tbody></table></div>';
+
+    container.innerHTML = html;
+    console.log('[IGP] igpRenderProdukty — vykreslených produktov:', products.length);
 }
 
 /**
@@ -418,7 +412,7 @@ function igpVyberProdukt(id, name, price) {
     IGPForm.save('vyber_produktu_cena',  price);
     IGPForm.sendGA('rozcestnik_produkt_click', { produkt: name, cena: price });
 
-    window.location.href = '<?php echo esc_js( home_url('/kalkulacia-klimatizacia-formular?krok=1') ); ?>';
+    window.location.href = '<?php echo esc_js( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>';
 }
 
 // Obnoviť sekciu produktov, ak bola trieda uložená z predchádzajúcej návštevy

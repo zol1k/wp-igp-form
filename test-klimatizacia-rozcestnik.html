@@ -194,8 +194,7 @@
             V prípade záujmu kliknite na mám záujem.
         </p>
 
-        <div id="igp-produkty-container" class="row g-4 mb-4"></div>
-        <div id="igp-param-container" class="igp-compare-wrap mb-5"></div>
+        <div id="igp-produkty-container" class="mb-5"></div>
 
     </div>
 
@@ -229,40 +228,47 @@ function igpVyberTriedu(title, price, slug) {
 }
 
 function renderProdukty() {
-    var container     = document.getElementById('igp-produkty-container');
-    var paramContainer = document.getElementById('igp-param-container');
+    var container = document.getElementById('igp-produkty-container');
 
-    var html = '';
-    DEMO_PRODUCTS.forEach(function(p) {
-        html += '<div class="col-12 col-md-4"><div class="igp-product-card h-100">';
-        if (p.featured) html += '<span class="igp-nas-tip-badge">Náš tip</span>';
-        html += '<img src="" alt="' + p.name + '" style="background:#E5E7EB;">';
-        html += '<div class="igp-product-name mb-1">' + p.name + '</div>';
-        html += '<div class="igp-product-price">' + p.price + '</div>';
-        html += '<button type="button" class="' + (p.featured ? 'igp-btn-primary' : 'igp-btn-outline') + ' w-100"';
-        html += ' onclick="vyberProdukt(' + p.id + ',\'' + p.name.replace(/'/g,"\\'") + '\',\'' + p.price + '\')">';
-        html += 'Mám záujem</button></div></div>';
-    });
-    container.innerHTML = html;
-
-    var paramht = '<table class="igp-param-table w-100"><thead><tr><th>POROVNÁVANÉ PARAMETRE</th>';
-    DEMO_PRODUCTS.forEach(function(p){ paramht += '<th>' + p.name + '</th>'; });
-    paramht += '</tr></thead><tbody>';
-    var rows = [
-        { label:'Chladiaci výkon',     key:'power' },
-        { label:'Trieda efektívnosti', key:'eff',   highlight:true },
-        { label:'Hlučnosť',            key:'noise'  },
+    var params = [
+        { label: 'Chladiaci výkon',     key: 'power' },
+        { label: 'Trieda efektívnosti', key: 'eff',   highlight: true },
+        { label: 'Hlučnosť',            key: 'noise' },
     ];
-    rows.forEach(function(row) {
-        paramht += '<tr><td>' + row.label + '</td>';
+
+    var minW = 160 + DEMO_PRODUCTS.length * 190;
+    var html = '<div class="igp-compare-wrap">';
+    html += '<table class="igp-param-table" style="min-width:' + minW + 'px;">';
+
+    // thead — product cards
+    html += '<thead><tr>';
+    html += '<th style="min-width:160px;background:#F1F5F9;">POROVNÁVANÉ PARAMETRE</th>';
+    DEMO_PRODUCTS.forEach(function(p) {
+        html += '<th style="background:#fff;vertical-align:top;padding:16px 14px;min-width:190px;border-bottom:2px solid var(--igp-border);">';
+        html += '<div class="igp-product-col-inner">';
+        if (p.featured) html += '<span class="igp-nas-tip-badge">Náš tip</span>';
+        html += '<img src="" alt="' + p.name + '">';
+        html += '<span class="igp-product-col-name">' + p.name + '</span>';
+        html += '<span class="igp-product-col-price">' + p.price + '</span>';
+        html += '<button type="button" class="' + (p.featured ? 'igp-btn-primary' : 'igp-btn-outline') + ' w-100"';
+        html += ' onclick="vyberProdukt(' + p.id + ',\'' + p.name.replace(/'/g, "\\'") + '\',\'' + p.price + '\')">';
+        html += 'Mám záujem</button></div></th>';
+    });
+    html += '</tr></thead>';
+
+    // tbody — param rows
+    html += '<tbody>';
+    params.forEach(function(row) {
+        html += '<tr><td style="font-weight:500;color:#4B5563;">' + row.label + '</td>';
         DEMO_PRODUCTS.forEach(function(p) {
             var isBest = row.highlight && p.featured;
-            paramht += '<td' + (isBest ? ' class="igp-param-highlight"' : '') + '>' + p[row.key] + '</td>';
+            html += '<td' + (isBest ? ' class="igp-param-highlight"' : '') + '>' + p[row.key] + '</td>';
         });
-        paramht += '</tr>';
+        html += '</tr>';
     });
-    paramht += '</tbody></table>';
-    paramContainer.innerHTML = paramht;
+    html += '</tbody></table></div>';
+
+    container.innerHTML = html;
 }
 
 function vyberProdukt(id, name, price) {

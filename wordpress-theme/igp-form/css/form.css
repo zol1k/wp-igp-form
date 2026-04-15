@@ -324,8 +324,8 @@ body {
     border:        1px solid var(--igp-border);
     border-radius: var(--igp-radius);
     background:    #fff;
-    overflow:      hidden;
     overflow-x:    auto;
+    padding-top:   16px; /* room for Populárna / Náš tip badge */
 }
 
 .igp-compare-table {
@@ -433,6 +433,37 @@ body {
     border-radius: var(--igp-radius-sm);
     margin-bottom: 14px;
     background:    #e5e7eb;
+}
+
+/* Product col inside unified compare table */
+.igp-product-col-inner {
+    position:   relative;
+    padding-top: 14px; /* room for Náš tip badge */
+    text-align: center;
+}
+.igp-product-col-inner img {
+    width:         100%;
+    height:        140px;
+    object-fit:    cover;
+    border-radius: var(--igp-radius-sm);
+    margin-bottom: 10px;
+    background:    #e5e7eb;
+    display:       block;
+}
+.igp-product-col-name  { font-size: 0.9rem;  font-weight: 700; color: var(--igp-navy);    display: block; margin-bottom: 4px; }
+.igp-product-col-price { font-size: 1rem;    font-weight: 700; color: var(--igp-primary); display: block; margin-bottom: 10px; }
+
+/* Validation error highlight on formular option groups */
+.igp-group-error {
+    outline:        2px solid #EF4444;
+    outline-offset: 6px;
+    border-radius:  8px;
+    animation:      igpShake 0.35s ease;
+}
+@keyframes igpShake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-4px); }
+    75%       { transform: translateX(4px); }
 }
 .igp-nas-tip-badge {
     position:       absolute;
