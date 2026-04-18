@@ -1,3 +1,5 @@
+/* Bootstrap's `.table-responsive` is used for horizontal scrolling on small screens.
+   Keep small helper tweaks below when necessary (avoid duplicate responsive wrappers). */
 /* ═══════════════════════════════════════════════════════════════════════════════
    IGP Form — Custom Styles  (form.css)
    ─────────────────────────────────────
@@ -46,6 +48,7 @@ body {
         box-shadow    var(--igp-transition);
     user-select: none;
     min-height: 110px;
+    height: 100%;           /* stretch to equal height within Bootstrap row */
     /* Make the whole card a "button" while remaining block-level */
     -webkit-tap-highlight-color: transparent;
 }
@@ -454,11 +457,17 @@ body {
 .igp-product-col-price { font-size: 1rem;    font-weight: 700; color: var(--igp-primary); display: block; margin-bottom: 10px; }
 
 /* Validation error highlight on formular option groups */
+/* Soft light-red background instead of a harsh outline */
 .igp-group-error {
-    outline:        2px solid #EF4444;
-    outline-offset: 6px;
-    border-radius:  8px;
+    background:     #FEF2F2;               /* very pale red tint            */
+    border-radius:  var(--igp-radius);
+    padding-top:    10px;
+    padding-bottom: 6px;
     animation:      igpShake 0.35s ease;
+}
+/* Clear background on valid groups so it doesn't flicker */
+.igp-option-group:not(.igp-group-error) {
+    background: transparent;
 }
 @keyframes igpShake {
     0%, 100% { transform: translateX(0); }
@@ -650,7 +659,7 @@ body {
 
 /* ── Utilities ───────────────────────────────────────────────────────────────── */
 .igp-hidden         { display: none !important; }
-.igp-page-container { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+.igp-page-container { max-width: 100%; margin: 0 auto; padding: 0 20px 60px; }
 
 /* ─────────────────────────────────────────────────────────────────────────────
    RESPONSIVE overrides

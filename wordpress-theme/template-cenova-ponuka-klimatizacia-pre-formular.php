@@ -77,7 +77,7 @@ igp_render_header();
                 <div class="igp-option-card" data-value="ano">
                     <i class="bi bi-check-circle igp-card-icon"></i>
                     <span class="igp-card-label">Mám rozvody v stene</span>
-                    <span class="igp-card-sublabel">(pošli fotku)</span>
+                    <span class="igp-card-sublabel">(priložte prílohu v ďalšom kroku)</span>
                 </div>
             </div>
         </div>
@@ -162,9 +162,9 @@ igp_render_header();
         <!-- ── Odoslanie ──────────────────────────────────────────────────── -->
         <div class="igp-form-nav mt-4">
             <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/') ); ?>"
-               class="igp-btn-outline">Späť</a>
+               class="fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4">Späť</a>
             <button type="button"
-                    class="igp-btn-primary"
+                    class="fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4"
                     onclick="igpPFPokracovat()">
                 Pokračovať
             </button>

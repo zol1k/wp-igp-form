@@ -163,9 +163,9 @@ $back_url         = home_url( '/cenova-ponuka-rozcestnik/cenova-ponuka-klimatiza
         <!-- ── Navigácia ──────────────────────────────────────────────────── -->
         <div class="igp-form-nav mt-4">
             <a href="<?php echo esc_url( $back_url ); ?>"
-               class="igp-btn-outline">Späť</a>
+               class="fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4">Späť</a>
             <button type="button"
-                    class="igp-btn-primary"
+                    class="fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4"
                     onclick="igpFormularPokracovat()">
                 Pokračovať
             </button>

@@ -13,7 +13,7 @@ get_header();
 igp_render_header();  // z loader.php
 ?>
 
-<div class="igp-page-container" style="max-width:960px;">
+<div class="igp-page-container">
 
     <!-- Nadpis stránky -->
     <div class="text-center mb-5">

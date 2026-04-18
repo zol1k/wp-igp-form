@@ -123,7 +123,7 @@ igp_render_header();
             </div>
 
             <!-- Poznámka (voliteľné) -->
-            <div class="mb-4">
+            <div class="mb-3">
                 <label for="vy-poznamka" class="form-label fw-semibold">
                     Poznámka <span class="text-muted fw-normal">(voliteľné)</span>
                 </label>
@@ -134,12 +134,29 @@ igp_render_header();
                           oninput="IGPForm.save('vyhodnotenie_poznamka', this.value)"></textarea>
             </div>
 
+            <!-- Príloha (voliteľné) -->
+            <div class="mb-4">
+                <label for="vy-fotka" class="form-label fw-semibold">
+                    Príloha <span class="text-muted fw-normal">(voliteľné)</span>
+                </label>
+                <p class="text-muted small mb-2">
+                    Môžete priložiť fotku, náčrt alebo iný dokument, ktorý nám pomôže lepšie pochopiť vašu situáciu.
+                </p>
+                <input type="file" id="vy-fotka" name="fotka"
+                       class="form-control igp-input"
+                       accept="image/*,.pdf"
+                       aria-describedby="vy-fotka-help">
+                <div id="vy-fotka-help" class="form-text">
+                    Povolené formáty: JPG, PNG, WEBP, PDF. Max. veľkosť: 8 MB.
+                </div>
+            </div>
+
             <!-- Error / success hlásenie -->
             <div id="vy-feedback" class="alert d-none mb-3" role="alert"></div>
 
             <!-- Odoslať tlačidlo -->
             <button type="submit" id="vy-submit-btn"
-                    class="igp-btn-primary w-100 py-3"
+                    class="fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 igp-btn-primary w-100 py-3"
                     style="font-size:1rem;">
                 Odoslať
             </button>
@@ -208,6 +225,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             showFeedback('Zadajte platný e-mail.', 'danger');
             return;
+        }
+        // File size check (max 8 MB)
+        var fotkaInput = document.getElementById('vy-fotka');
+        if (fotkaInput && fotkaInput.files.length > 0) {
+            if (fotkaInput.files[0].size > 8 * 1024 * 1024) {
+                showFeedback('Súbor je príliš veľký. Maximálna povolená veľkosť je 8 MB.', 'danger');
+                return;
+            }
         }
 
         submitBtn.disabled    = true;

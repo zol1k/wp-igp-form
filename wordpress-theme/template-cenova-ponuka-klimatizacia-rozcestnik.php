@@ -113,18 +113,18 @@ foreach ( $classes as $cls ) {
             'id'       => $pid,
             'name'     => get_the_title( $pid ),
             'price'    => (string) ( get_field( 'aircond-price-calc',      $pid ) ?: '' ),
-            'power'    => (string) ( get_field( 'aircond-power-calc',      $pid ) ?: '' ),
-            'eff'      => (string) ( get_field( 'aircond-efficiency-calc', $pid ) ?: '' ),
-            'noise'    => (string) ( get_field( 'aircond-noise-calc',      $pid ) ?: '' ),
+            'energy'   => (string) ( get_field( 'aircond-energy-class',     $pid ) ?: '' ),
+            'cooling'  => (string) ( get_field( 'aircond-cooling',          $pid ) ?: '' ),
+            'warranty' => (string) ( get_field( 'aircond-warranty',         $pid ) ?: '' ),
             'img'      => (string) ( get_the_post_thumbnail_url( $pid, 'medium' ) ?: '' ),
-            'featured' => (bool)     get_field( 'aircond-featured-calc',   $pid ),
+            'featured' => (bool)     get_field( 'aircond-featured-calc',    $pid ),
         ];
     }
     $products_by_slug[ $slug ] = $products;
 }
 ?>
 
-<div class="igp-page-container" style="max-width:1100px;">
+<div class="igp-page-container">
 
     <!-- Nadpis -->
     <div class="text-center mb-5">
@@ -139,12 +139,12 @@ foreach ( $classes as $cls ) {
 
     <!-- ─────────────────────── SEKCIA 1 — Výber triedy ──────────────────── -->
     <div id="igp-triedy-sekcia">
-        <div class="igp-compare-wrap mb-5">
-            <table class="igp-compare-table">
+        <div class="table-responsive igp-compare-wrap mb-5">
+            <table class="table table-sm igp-compare-table">
                 <thead>
                     <tr>
                         <!-- Riadok nadpisov stĺpcov -->
-                        <th style="width:160px;">Porovnanie</th>
+                        <th class="text-nowrap" style="width:160px;">Porovnanie</th>
                         <?php foreach ( $classes as $i => $cls ) : ?>
                             <th class="<?php echo $cls['featured'] ? 'igp-col-popular-wrap' : ''; ?>">
                                 <?php if ( $cls['featured'] ) : ?>
@@ -234,7 +234,7 @@ foreach ( $classes as $cls ) {
                                 $btnLabel  = $cls['featured'] ? 'VYBRAŤ'         : 'Mám záujem';
                                 ?>
                                 <button type="button"
-                                        class="<?php echo esc_attr($btnClass); ?> w-100"
+                                        class="<?php echo esc_attr($btnClass); ?> fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100"
                                         onclick="igpVyberTriedu(
                                             '<?php echo esc_js( $cls['title'] ); ?>',
                                             '<?php echo esc_js( $cls['price'] ); ?>',
@@ -246,7 +246,7 @@ foreach ( $classes as $cls ) {
                         <?php endforeach; ?>
                         <td>
                             <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>"
-                               class="igp-btn-outline w-100 text-center"
+                               class="igp-btn-outline fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100 text-center"
                                onclick="IGPForm.save('vyber_triedy','individual'); IGPForm.sendGA('rozcestnik_individual_click',{});">
                                 Kontaktovať
                             </a>
@@ -358,29 +358,29 @@ function igpRenderProdukty(slug) {
     }
 
     var params = [
-        { label: 'Chladiaci výkon',     key: 'power' },
-        { label: 'Trieda efektívnosti', key: 'eff',   highlight: true },
-        { label: 'Hlučnosť',            key: 'noise' },
+        { label: 'Energetická trieda', key: 'energy', highlight: true },
+        { label: 'Chladivo',           key: 'cooling' },
+        { label: 'Záruka',             key: 'warranty' },
     ];
 
     // Jednotná tabuľka — product cards v thead, parametre v tbody
     var minW = 160 + products.length * 190;
-    var html = '<div class="igp-compare-wrap">';
-    html += '<table class="igp-param-table" style="min-width:' + minW + 'px;">';
+    var html = '<div class="table-responsive igp-compare-wrap">';
+    html += '<table class="table table-sm igp-param-table">';
 
     // ── thead: product card columns ──────────────────────────────────────
     html += '<thead><tr>';
-    html += '<th style="min-width:160px;background:#F1F5F9;">POROVNÁVANÉ PARAMETRE</th>';
+    html += '<th class="text-nowrap" style="min-width:160px;background:#F1F5F9;">POROVNÁVANÉ PARAMETRE</th>';
     products.forEach(function(p) {
         html += '<th style="background:#fff;vertical-align:top;padding:16px 14px;min-width:190px;border-bottom:2px solid var(--igp-border);">';
         html += '<div class="igp-product-col-inner">';
         if (p.featured) {
             html += '<span class="igp-nas-tip-badge">Náš tip</span>';
         }
-        html += '<img src="' + (p.img || '') + '" alt="' + p.name + '">';
+        html += '<img class="img-fluid" src="' + (p.img || '') + '" alt="' + p.name + '">';
         html += '<span class="igp-product-col-name">' + p.name + '</span>';
         html += '<span class="igp-product-col-price">' + p.price + '</span>';
-        html += '<button type="button" class="' + (p.featured ? 'igp-btn-primary' : 'igp-btn-outline') + ' w-100"';
+        html += '<button type="button" class="' + (p.featured ? 'igp-btn-primary btn btn-primary' : 'igp-btn-outline btn btn-outline-secondary') + ' fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100"';
         html += ' onclick="igpVyberProdukt(' + p.id + ',\'' + p.name.replace(/'/g, "\\'") + '\',\'' + p.price + '\')">Mám záujem</button>';
         html += '</div></th>';
     });
