@@ -234,6 +234,7 @@ foreach ( $classes as $cls ) {
                                 $btnLabel  = $cls['featured'] ? 'VYBRAŤ'         : 'Mám záujem';
                                 ?>
                                 <button type="button"
+                                        style="white-space:nowrap;"
                                         class="<?php echo esc_attr($btnClass); ?> fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100"
                                         onclick="igpVyberTriedu(
                                             '<?php echo esc_js( $cls['title'] ); ?>',
@@ -246,6 +247,7 @@ foreach ( $classes as $cls ) {
                         <?php endforeach; ?>
                         <td>
                             <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>"
+                               style="white-space:nowrap;"
                                class="igp-btn-outline fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100 text-center"
                                onclick="IGPForm.save('vyber_triedy','individual'); IGPForm.sendGA('rozcestnik_individual_click',{});">
                                 Kontaktovať
@@ -380,7 +382,7 @@ function igpRenderProdukty(slug) {
         html += '<img class="img-fluid" src="' + (p.img || '') + '" alt="' + p.name + '">';
         html += '<span class="igp-product-col-name">' + p.name + '</span>';
         html += '<span class="igp-product-col-price">' + p.price + '</span>';
-        html += '<button type="button" class="' + (p.featured ? 'igp-btn-primary btn btn-primary' : 'igp-btn-outline btn btn-outline-secondary') + ' fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100"';
+        html += '<button type="button" style="text-transform:none;white-space:nowrap;" class="' + (p.featured ? 'igp-btn-primary btn btn-primary' : 'igp-btn-outline btn btn-outline-secondary') + ' fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100"';
         html += ' onclick="igpVyberProdukt(' + p.id + ',\'' + p.name.replace(/'/g, "\\'") + '\',\'' + p.price + '\')">Mám záujem</button>';
         html += '</div></th>';
     });

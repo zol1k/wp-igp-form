@@ -440,9 +440,12 @@ body {
 
 /* Product col inside unified compare table */
 .igp-product-col-inner {
-    position:   relative;
-    padding-top: 14px; /* room for Náš tip badge */
-    text-align: center;
+    position:        relative;
+    padding-top:     14px; /* room for Náš tip badge */
+    text-align:      center;
+    display:         flex;
+    flex-direction:  column;
+    height:          100%;
 }
 .igp-product-col-inner img {
     width:         100%;
@@ -455,6 +458,8 @@ body {
 }
 .igp-product-col-name  { font-size: 0.9rem;  font-weight: 700; color: var(--igp-navy);    display: block; margin-bottom: 4px; }
 .igp-product-col-price { font-size: 1rem;    font-weight: 700; color: var(--igp-primary); display: block; margin-bottom: 10px; }
+/* Push button to bottom so all buttons align in the same row */
+.igp-product-col-inner button { margin-top: auto; }
 
 /* Validation error highlight on formular option groups */
 /* Soft light-red background instead of a harsh outline */
@@ -508,6 +513,9 @@ body {
     color:         #6B7280;
     border-bottom:  1px solid var(--igp-border);
     text-align:    left;
+    /* Allow child .igp-product-col-inner to stretch to full cell height */
+    height:        1px;
+    vertical-align: top;
 }
 .igp-param-table th:not(:first-child) { text-align: center; }
 .igp-param-table td {
@@ -550,6 +558,7 @@ body {
    DEBUG PANEL  — visible during development / local testing
    ───────────────────────────────────────────────────────────────────────── */
 .igp-debug-wrap {
+    display:       none; /* hidden — re-enable for debugging */
     background:    #1E293B;
     color:         #E2E8F0;
     border-radius: var(--igp-radius);
