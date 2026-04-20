@@ -151,6 +151,20 @@ igp_render_header();
                 </div>
             </div>
 
+            <!-- GDPR súhlas -->
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" id="vy-gdpr" name="gdpr"
+                           class="form-check-input" required>
+                    <label for="vy-gdpr" class="form-check-label" style="font-size:0.875rem;">
+                        Súhlasím s
+                        <a href="<?php echo esc_url( home_url('/ochrana-osobnych-udajov/') ); ?>"
+                           target="_blank" rel="noopener">podmienkami ochrany osobných údajov</a>
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+            </div>
+
             <!-- Error / success hlásenie -->
             <div id="vy-feedback" class="alert d-none mb-3" role="alert"></div>
 
@@ -176,6 +190,9 @@ igp_render_header();
 <!-- ── Inline JS ──────────────────────────────────────────────────────────── -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
+    // ─── Typ produktu (pre CRM rozlíšenie) ────────────────────────────────
+    IGPForm.save('produkt_typ', 'klimatizacia');
 
     // ─── Naplniť produkt z sessionStorage ─────────────────────────────────
     var nazov = IGPForm.get('vyber_produktu_nazov');
@@ -224,6 +241,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Simple email format check
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             showFeedback('Zadajte platný e-mail.', 'danger');
+            return;
+        }
+        // GDPR check
+        if (!document.getElementById('vy-gdpr').checked) {
+            showFeedback('Prosím potvrďte súhlas s ochranou osobných údajov.', 'danger');
             return;
         }
         // File size check (max 8 MB)

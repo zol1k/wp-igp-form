@@ -347,7 +347,6 @@ body {
 }
 .igp-compare-table thead th:first-child {
     text-align: left;
-    color:      var(--igp-primary);
     font-size:  1rem;
     min-width:  160px;
 }
@@ -382,7 +381,9 @@ body {
     display:     block;
     margin-top:  2px;
 }
-
+.table.igp-param-table, .table.igp-compare-table {
+    margin-bottom: 0;
+}
 /* Badge anchored to the popular column header */
 .igp-col-popular-wrap {
     position: relative;
@@ -409,7 +410,7 @@ body {
 
 /* Icon helpers */
 .igp-check-yes { color: var(--igp-green);  font-size: 1rem; }
-.igp-check-no  { color: #D1D5DB;           font-size: 1rem; }
+.igp-check-no  { color: #000;           font-size: 1rem; }
 
 /* ─────────────────────────────────────────────────────────────────────────────
    PRODUCT CARDS  — product comparison in klimatizacia rozcestnik (step 2)
@@ -504,13 +505,10 @@ body {
     font-size:       0.85rem;
 }
 .igp-param-table th {
-    background:    #F1F5F9;
     padding:       10px 12px;
-    font-size:     0.7rem;
     font-weight:   700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color:         #6B7280;
     border-bottom:  1px solid var(--igp-border);
     text-align:    left;
     /* Allow child .igp-product-col-inner to stretch to full cell height */

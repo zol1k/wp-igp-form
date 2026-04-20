@@ -139,7 +139,7 @@ foreach ( $classes as $cls ) {
 
     <!-- ─────────────────────── SEKCIA 1 — Výber triedy ──────────────────── -->
     <div id="igp-triedy-sekcia">
-        <div class="table-responsive igp-compare-wrap mb-5">
+        <div class="table-responsive igp-compare-wrap mb-2">
             <table class="table table-sm igp-compare-table">
                 <thead>
                     <tr>
@@ -150,7 +150,7 @@ foreach ( $classes as $cls ) {
                                 <?php if ( $cls['featured'] ) : ?>
                                     <span class="igp-popular-badge">Populárna</span>
                                 <?php endif; ?>
-                                <span class="igp-class-name"><?php echo esc_html( $cls['class'] ); ?></span>
+                                <span class="igp-class-name"><?php echo esc_html( $cls['title'] ); ?></span>
                                 <span class="igp-class-price"><?php echo esc_html( $cls['price'] ); ?></span>
                             </th>
                         <?php endforeach; ?>
@@ -256,6 +256,11 @@ foreach ( $classes as $cls ) {
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="d-md-none mb-4">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:#EFF6FF;border:1px solid #BFDBFE;color:#1D4ED8;font-size:0.8rem;font-weight:500;padding:5px 12px;border-radius:20px;">
+                <i class="bi bi-arrow-left-right"></i> Potiahnutím doprava zobrazíte všetky možnosti.
+            </span>
         </div>
 
         <!-- Prečo si vybrať montáž od nás
@@ -372,7 +377,7 @@ function igpRenderProdukty(slug) {
 
     // ── thead: product card columns ──────────────────────────────────────
     html += '<thead><tr>';
-    html += '<th class="text-nowrap" style="min-width:160px;background:#F1F5F9;">POROVNÁVANÉ PARAMETRE</th>';
+    html += '<th class="text-nowrap" style="min-width:160px;">POROVNÁVANÉ PARAMETRE</th>';
     products.forEach(function(p) {
         html += '<th style="background:#fff;vertical-align:top;padding:16px 14px;min-width:190px;border-bottom:2px solid var(--igp-border);">';
         html += '<div class="igp-product-col-inner">';
@@ -400,6 +405,7 @@ function igpRenderProdukty(slug) {
         html += '</tr>';
     });
     html += '</tbody></table></div>';
+    html += '<div class="d-md-none mt-2"><span style="display:inline-flex;align-items:center;gap:6px;background:#EFF6FF;border:1px solid #BFDBFE;color:#1D4ED8;font-size:0.8rem;font-weight:500;padding:5px 12px;border-radius:20px;"><i class="bi bi-arrow-left-right"></i> Potiahnut\u00edm doprava zobraz\u00edte v\u0161etky mo\u017enosti.</span></div>';
 
     container.innerHTML = html;
     console.log('[IGP] igpRenderProdukty — vykreslených produktov:', products.length);

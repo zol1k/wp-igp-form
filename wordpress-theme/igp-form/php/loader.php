@@ -132,9 +132,14 @@ function igp_handle_form_submission() {
 
     $ga_id = sanitize_text_field( wp_unslash( $_POST['ga_id'] ?? '' ) );
 
+    // ── Fire action so functions.php (or any plugin) can handle CRM/integrations
+    do_action( 'igp_form_submitted', $meno, $mobil, $email, $adresa, $poznamka, $ga_id, $session_data );
+
     // ── Build email body ──────────────────────────────────────────────────────
     $recipient_email = [
         'm.zoldos@gmail.com',
+        'liska@inetgap.sk',
+        'ponuky@mallayslovakia.sk',
         // 'dalsi@email.sk',
     ];
     $subject = 'Nová žiadosť o klimatizáciu – ' . $meno;
@@ -146,7 +151,7 @@ function igp_handle_form_submission() {
         'igp_vyber_triedy_slug', 'igp_vyber_produktu_id',
     ];
 
-    // Human-readable labels — null = skip silently
+    // Human-readable labels
     $igp_key_labels = [
         'igp_vyber_triedy'           => 'Trieda klimatizácie',
         'igp_vyber_triedy_cena'      => 'Cena triedy',
@@ -158,12 +163,6 @@ function igp_handle_form_submission() {
         'igp_preformular_farba'      => 'Farba',
         'igp_preformular_vyuzitie'   => 'Využitie',
         'igp_preformular_prevedenie' => 'Prevedenie',
-        'igp_formular_rozmer'        => 'Veľkosť priestoru',
-        'igp_formular_priprava'      => 'Príprava rozvodov',
-        'igp_formular_filtracia'     => 'Filtrácia',
-        'igp_formular_farba'         => 'Farba',
-        'igp_formular_vyuzitie'      => 'Využitie',
-        'igp_formular_prevedenie'    => 'Prevedenie',
     ];
 
     // Build config rows HTML
