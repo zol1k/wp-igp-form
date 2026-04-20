@@ -85,6 +85,14 @@ function igp_enqueue_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'igp_enqueue_assets' );
 
+// Show debug panel only for logged-in users
+add_action( 'wp_head', function() {
+    if ( ! is_user_logged_in() ) return;
+    $template = get_page_template_slug();
+    if ( strpos( $template, 'template-cenova-ponuka' ) === false ) return;
+    echo '<style>.igp-debug-wrap { display: block !important; }</style>';
+} );
+
 // ─── AJAX form submission handler ────────────────────────────────────────────
 
 /**
@@ -138,7 +146,7 @@ function igp_handle_form_submission() {
     // ── Build email body ──────────────────────────────────────────────────────
     $recipient_email = [
         'm.zoldos@gmail.com',
-        'liska@inetgap.sk',
+        //'liska@inetgap.sk',
         'ponuky@mallayslovakia.sk',
         // 'dalsi@email.sk',
     ];
@@ -146,24 +154,34 @@ function igp_handle_form_submission() {
 
     // Session keys to skip (contact duplicates + internal slugs)
     $igp_skip_keys = [
-        'igp_vyhodnotenie_meno', 'igp_vyhodnotenie_adresa', 'igp_vyhodnotenie_psc',
-        'igp_vyhodnotenie_mobil', 'igp_vyhodnotenie_email', 'igp_vyhodnotenie_poznamka',
-        'igp_vyber_triedy_slug', 'igp_vyber_produktu_id',
+        'igp_cf_meno', 'igp_cf_adresa', 'igp_cf_psc',
+        'igp_cf_mobil', 'igp_cf_email', 'igp_cf_poznamka',
+        'igp_vyber_triedy_slug', 'igp_vyber_produktu_id', 'igp_is_individual', 'igp_produkt_typ',
     ];
 
-    // Human-readable labels
-    $igp_key_labels = [
-        'igp_vyber_triedy'           => 'Trieda klimatizácie',
-        'igp_vyber_triedy_cena'      => 'Cena triedy',
-        'igp_vyber_produktu_nazov'   => 'Vybraný produkt',
-        'igp_vyber_produktu_cena'    => 'Cena produktu',
-        'igp_preformular_rozmer'     => 'Veľkosť priestoru',
-        'igp_preformular_priprava'   => 'Príprava rozvodov',
-        'igp_preformular_filtracia'  => 'Filtrácia',
-        'igp_preformular_farba'      => 'Farba',
-        'igp_preformular_vyuzitie'   => 'Využitie',
-        'igp_preformular_prevedenie' => 'Prevedenie',
-    ];
+    // Human-readable labels — farba/vyuzitie/prevedenie len pre individuálnu ponuku
+    $is_individual = in_array( $session_data['igp_is_individual'] ?? '0', [ '1', 1, true ], false );
+    if ( $is_individual ) {
+        $igp_key_labels = [
+            'igp_vyber_triedy'           => 'Trieda klimatizácie',
+            'igp_preformular_rozmer'     => 'Veľkosť priestoru',
+            'igp_preformular_priprava'   => 'Príprava rozvodov',
+            'igp_preformular_filtracia'  => 'Filtrácia',
+            'igp_preformular_farba'      => 'Farba',
+            'igp_preformular_vyuzitie'   => 'Využitie',
+            'igp_preformular_prevedenie' => 'Prevedenie',
+        ];
+    } else {
+        $igp_key_labels = [
+            'igp_vyber_triedy'           => 'Trieda klimatizácie',
+            'igp_vyber_triedy_cena'      => 'Cena triedy',
+            'igp_vyber_produktu_nazov'   => 'Vybraný produkt',
+            'igp_vyber_produktu_cena'    => 'Cena produktu',
+            'igp_preformular_rozmer'     => 'Veľkosť priestoru',
+            'igp_preformular_priprava'   => 'Príprava rozvodov',
+            'igp_preformular_filtracia'  => 'Filtrácia',
+        ];
+    }
 
     // Build config rows HTML
     $igp_config_rows = '';

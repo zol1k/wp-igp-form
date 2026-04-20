@@ -99,6 +99,9 @@ igp_render_header();
             </div>
         </div>
 
+        <!-- ── Polia len pre individuálnu ponuku ─────────────────────────── -->
+        <div id="pf-individual-fields" class="igp-hidden">
+
         <!-- ── Farebné prevedenie ──────────────────────────────────────────── -->
         <p class="igp-question-label">Farebné prevedenie</p>
         <div id="pf-farba" class="igp-option-group row g-3 mb-2">
@@ -159,6 +162,8 @@ igp_render_header();
             </div>
         </div>
 
+        </div><!-- /#pf-individual-fields -->
+
         <!-- ── Odoslanie ──────────────────────────────────────────────────── -->
         <div class="igp-form-nav mt-4">
             <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/') ); ?>"
@@ -190,6 +195,11 @@ document.addEventListener('DOMContentLoaded', function() {
     IGPForm.initCards('#pf-vyuzitie',  'preformular_vyuzitie',  { gaEvent: 'pf_vyuzitie_click'  });
     IGPForm.initCards('#pf-prevedenie','preformular_prevedenie',{ gaEvent: 'pf_prevedenie_click'});
 
+    // Zobraziť polia pre individuálnu ponuku len keď bola zvolená individuálna trieda
+    if ( IGPForm.get('is_individual') == 1 ) {
+        document.getElementById('pf-individual-fields').classList.remove('igp-hidden');
+    }
+
     // Clear validation highlight when a card is selected inside a group
     document.getElementById('igp-preformular').addEventListener('click', function(e) {
         var card = e.target.closest('.igp-option-card');
@@ -205,14 +215,19 @@ document.addEventListener('DOMContentLoaded', function() {
  * Invalid groups get a red outline; clears on next card selection via delegation.
  */
 function igpPFPokracovat() {
+    var isIndividual = IGPForm.get('is_individual') == 1;
     var groups = [
         { id: 'pf-rozmer',     key: 'preformular_rozmer'     },
         { id: 'pf-priprava',   key: 'preformular_priprava'   },
         { id: 'pf-filtracia',  key: 'preformular_filtracia'  },
-        { id: 'pf-farba',      key: 'preformular_farba'      },
-        { id: 'pf-vyuzitie',   key: 'preformular_vyuzitie'   },
-        { id: 'pf-prevedenie', key: 'preformular_prevedenie' },
     ];
+    if ( isIndividual ) {
+        groups.push(
+            { id: 'pf-farba',      key: 'preformular_farba'      },
+            { id: 'pf-vyuzitie',   key: 'preformular_vyuzitie'   },
+            { id: 'pf-prevedenie', key: 'preformular_prevedenie' }
+        );
+    }
 
     var firstError = null;
     groups.forEach(function(g) {

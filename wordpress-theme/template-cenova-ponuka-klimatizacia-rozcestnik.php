@@ -249,7 +249,7 @@ foreach ( $classes as $cls ) {
                             <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>"
                                style="white-space:nowrap;"
                                class="igp-btn-outline fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100 text-center"
-                               onclick="IGPForm.save('vyber_triedy','individual'); IGPForm.sendGA('rozcestnik_individual_click',{});">
+                               onclick="event.preventDefault(); IGPForm.save('vyber_triedy','individual'); IGPForm.save('is_individual','1'); IGPForm.sendGA('rozcestnik_individual_click',{}); window.location.href=this.href;">
                                 Kontaktovať
                             </a>
                         </td>
@@ -333,6 +333,7 @@ function igpVyberTriedu(title, price, slug) {
     IGPForm.save('vyber_triedy',       title);
     IGPForm.save('vyber_triedy_cena',  price);
     IGPForm.save('vyber_triedy_slug',  slug);
+    IGPForm.save('is_individual',      '0');
     IGPForm.sendGA('rozcestnik_trieda_click', { trieda: title });
 
     // Zobraziť sekciu 2 a skryť tabuľku tried
@@ -418,6 +419,7 @@ function igpVyberProdukt(id, name, price) {
     IGPForm.save('vyber_produktu_id',    id);
     IGPForm.save('vyber_produktu_nazov', name);
     IGPForm.save('vyber_produktu_cena',  price);
+    IGPForm.save('is_individual',        '0');
     IGPForm.sendGA('rozcestnik_produkt_click', { produkt: name, cena: price });
 
     window.location.href = '<?php echo esc_js( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>';
