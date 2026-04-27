@@ -2,7 +2,7 @@
 /**
  * Template Name: Cenová ponuka – Klimatizácia vyhodnotenie
  *
- * URL: /cenova-ponuka-rozcestnik/cenova-ponuka-vyhodnotenie/
+ * URL: /kalkulacia/klimatizácie-vyhodnotenie
  *
  * Finálna stránka konfiguračního procesu.
  *
@@ -26,7 +26,7 @@ igp_render_header();
 <div class="igp-page-container">
 
     <!-- Späť na formular -->
-    <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>"
+    <a href="<?php echo esc_url( home_url('/kalkulacia/klimatizacie-formular') ); ?>"
        class="igp-btn-outline mb-4 d-inline-block">
         <i class="bi bi-arrow-left me-1"></i> Späť
     </a>

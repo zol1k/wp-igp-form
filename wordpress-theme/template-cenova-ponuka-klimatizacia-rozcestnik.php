@@ -2,7 +2,7 @@
 /**
  * Template Name: Cenová ponuka – Klimatizácia rozcestník
  *
- * URL: /cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/
+ * URL: /kalkulacia/klimatizacie
  *
  * Sekcia 1 — tabuľka tried (ACF repeater "aircondproducts")
  *   • Stĺpce = triedy (Základ, Komfort, Pokročilá, Prémiová + Individuálna ponuka)
@@ -246,7 +246,7 @@ foreach ( $classes as $cls ) {
                             </td>
                         <?php endforeach; ?>
                         <td>
-                            <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>"
+                            <a href="<?php echo esc_url( home_url('/kalkulacia/klimatizacie-formular') ); ?>"
                                style="white-space:nowrap;"
                                class="igp-btn-outline fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4 w-100 text-center"
                                onclick="event.preventDefault(); IGPForm.save('vyber_triedy','individual'); IGPForm.save('is_individual','1'); IGPForm.sendGA('rozcestnik_individual_click',{}); window.location.href=this.href;">
@@ -422,7 +422,7 @@ function igpVyberProdukt(id, name, price) {
     IGPForm.save('is_individual',        '0');
     IGPForm.sendGA('rozcestnik_produkt_click', { produkt: name, cena: price });
 
-    window.location.href = '<?php echo esc_js( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/') ); ?>';
+    window.location.href = '<?php echo esc_js( home_url('/kalkulacia/klimatizacie-formular') ); ?>';
 }
 
 // Obnoviť sekciu produktov, ak bola trieda uložená z predchádzajúcej návštevy

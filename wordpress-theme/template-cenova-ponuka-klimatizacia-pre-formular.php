@@ -2,11 +2,11 @@
 /**
  * Template Name: Cenová ponuka – Klimatizácia pre-formular
  *
- * URL: /cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie-formular/
+ * URL: /kalkulacia/klimatizacie-formular
  *
  * One-page formular pre výber Individuálnej ponuky.
  * Po odoslaní uloží všetky hodnoty do sessionStorage a presmeruje
- * na vyhodnotenie (/cenova-ponuka-rozcestnik/cenova-ponuka-vyhodnotenie/).
+ * na vyhodnotenie (/kalkulacia/klimatizácie-vyhodnotenie).
  *
  * Polia:
  *   Rozmer miestnosti  (radio dlaždice)
@@ -26,7 +26,7 @@ igp_render_header();
 <div class="igp-page-container">
 
     <!-- Späť link -->
-    <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/') ); ?>"
+    <a href="<?php echo esc_url( home_url('/kalkulacia/klimatizacie') ); ?>"
        class="igp-btn-outline mb-4 d-inline-block">
         <i class="bi bi-arrow-left me-1"></i> Späť na výber triedy
     </a>
@@ -166,7 +166,7 @@ igp_render_header();
 
         <!-- ── Odoslanie ──────────────────────────────────────────────────── -->
         <div class="igp-form-nav mt-4">
-            <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/') ); ?>"
+            <a href="<?php echo esc_url( home_url('/kalkulacia/klimatizacie') ); ?>"
                class="fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4">Späť</a>
             <button type="button"
                     class="fusion-button button-flat fusion-button-default-size button-default fusion-button-default button-4"
@@ -247,7 +247,7 @@ function igpPFPokracovat() {
     }
 
     IGPForm.sendGA('pf_continue', {});
-    window.location.href = '<?php echo esc_js( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-vyhodnotenie/') ); ?>';
+    window.location.href = '<?php echo esc_js( home_url('/kalkulacia/klimatizácie-vyhodnotenie') ); ?>';
 }
 </script>
 

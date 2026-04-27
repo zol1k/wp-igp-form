@@ -30,7 +30,7 @@ igp_render_header();  // z loader.php
 
         <!-- Klimatizácia -->
         <div class="col-12 col-md-4">
-            <a href="<?php echo esc_url( home_url('/cenova-ponuka-rozcestnik/cenova-ponuka-klimatizacie/') ); ?>"
+            <a href="<?php echo esc_url( home_url('/kalkulacia/klimatizacie') ); ?>"
                class="igp-hero-tile igp-tile-blue text-decoration-none"
                onclick="IGPForm.sendGA('rozcestnik_click', {tile:'klimatizacia'})">
                 <div class="igp-tile-icon-wrap">
